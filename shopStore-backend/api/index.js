@@ -1,6 +1,5 @@
-const serverless = require("serverless-http");
-const { connectDB } = require("../config/db");
-const app = require("../app");
+const { connectDB } = require("../src/config/db");
+const app = require("../src/app");
 
 // Ensure DB is connected on cold start; serverless environments may reuse containers.
 let isConnected = false;
@@ -15,4 +14,4 @@ ensureConnected().catch((err) => {
   console.error("Error connecting to DB (serverless):", err);
 });
 
-module.exports = serverless(app);
+export default app;
