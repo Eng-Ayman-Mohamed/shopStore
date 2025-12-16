@@ -1,17 +1,22 @@
 const { connectDB } = require("../src/config/db");
 const app = require("../src/app");
 
-// Ensure DB is connected on cold start; serverless environments may reuse containers.
+// Ensure DB is connected once per serverless container
 let isConnected = false;
+
 const ensureConnected = async () => {
   if (!isConnected) {
-    await connectDB();
-    isConnected = true;
+    try {
+      await connectDB();
+      isConnected = true;
+      console.log("Database connected on cold start ✅");
+    } catch (err) {
+      console.error("Error connecting to DB (serverless):", err);
+    }
   }
 };
 
-ensureConnected().catch((err) => {
-  console.error("Error connecting to DB (serverless):", err);
-});
+// Immediately try to connect
+ensureConnected();
 
-export default app;
+module.exports = app;
