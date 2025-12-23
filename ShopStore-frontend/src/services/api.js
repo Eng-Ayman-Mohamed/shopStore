@@ -170,9 +170,9 @@ export async function getProducts(filters = {}) {
   // Add sorting
   if (filters.sortBy) params.append("sort", filters.sortBy);
 
-  // Add pagination defaults
-  params.append("limit", "12");
-  params.append("page", "0");
+  // Add pagination parameters
+  params.append("limit", filters.limit?.toString() || "12");
+  params.append("page", filters.page?.toString() || "0");
 
   const queryString = params.toString();
   const url = `/products${queryString ? `?${queryString}` : ""}`;
