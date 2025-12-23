@@ -16,7 +16,7 @@ app.use(cors());
 // Or configure specific origins (Recommended)
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow only your frontend
+    origin: process.env.FRONTEND, // Allow only your frontend
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true, // If using cookies/auth

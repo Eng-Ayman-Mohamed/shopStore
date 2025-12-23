@@ -25,10 +25,12 @@ async function connectDB() {
       socketTimeoutMS: 45000,
       maxPoolSize: 10,
     };
-    
-    cached.promise = mongoose.connect(process.env.DATABASE, opts).then((mongoose) => {
-      return mongoose;
-    });
+
+    cached.promise = mongoose
+      .connect(process.env.DATABASE, opts)
+      .then((mongoose) => {
+        return mongoose;
+      });
   }
 
   cached.conn = await cached.promise;
