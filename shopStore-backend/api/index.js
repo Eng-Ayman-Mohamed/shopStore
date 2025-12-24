@@ -1,19 +1,9 @@
-const { connectDB } = require("../src/config/db");
-require("dotenv").config();
 const app = require("../src/app");
+const { connectDB } = require("../src/config/db");
 
-// Middleware to prevent "Buffering" timeouts
-app.use(async (req, res, next) => {
-  try {
-    await connectDB(); // This now correctly awaits the singleton connection
-    next();
-  } catch (err) {
-    console.error("Critical DB Error:", err);
-    res.status(500).json({
-      error: "Database connection failed",
-      details: err.message,
-    });
-  }
-});
+// Background connect to "warm up" the cold start
+connectDB().catch((err) =>
+  console.log("Background DB connection warming up...")
+);
 
 module.exports = app;

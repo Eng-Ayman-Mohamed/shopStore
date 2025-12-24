@@ -1,32 +1,50 @@
 const express = require("express");
-const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
+const { connectDB } = require("./config/db");
 
 const healthRouter = require("./routers/healthRouter");
 const usersRouter = require("./routers/usersRouter");
 const productsRouter = require("./routers/productsRoute");
-//MiddleWares
+
+const app = express();
+
+// 1. Core Middlewares
 app.use(morgan("dev"));
-// Increase limit to 10MB (default is 100kb)
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
-app.set("query parser", "extended");
-app.use(cors());
-
-// Or configure specific origins (Recommended)
 app.use(
   cors({
-    origin: "*", // Allow all users
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-//user routes
+// 2. HEALTH ROUTE (Must be before DB middleware)
+// This will always return 200 even if DB is struggling
 app.use("/api/health", healthRouter);
-app.use("/api/users", usersRouter);
 
-//products routes
-app.use("/api/products", productsRouter);
+// 3. DB CONNECTION MIDDLEWARE
+// Only applied to routes that actually need the database
+const dbMiddleware = async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error("Database connection failed:", err.message);
+    // Returning a 503 (Service Unavailable) is better than a 404
+    res.status(503).json({ error: "Database temporarily unavailable" });
+  }
+};
+
+// 4. PROTECTED DATA ROUTES
+app.use("/api/users", dbMiddleware, usersRouter);
+app.use("/api/products", dbMiddleware, productsRouter);
+
+// 5. 404 CATCH-ALL
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found on this server" });
+});
+
 module.exports = app;

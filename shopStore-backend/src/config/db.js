@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Use global to persist connection across serverless function invocations
 let cached = global.mongoose;
 
 if (!cached) {
@@ -7,34 +8,39 @@ if (!cached) {
 }
 
 async function connectDB() {
-  // Return cached connection if it exists
   if (cached.conn) {
     return cached.conn;
   }
 
-  // Ensure DATABASE env variable exists
   if (!process.env.MONGODB_URI) {
-    throw new Error("DATABASE environment variable is missing");
+    throw new Error(
+      "MONGODB_URI environment variable is missing in Vercel settings"
+    );
   }
 
-  // Create a new connection promise if none exists
   if (!cached.promise) {
     const opts = {
-      serverSelectionTimeoutMS: 5000, // Tell Mongoose to fail after 5s, not 30s
+      serverSelectionTimeoutMS: 5000, // Fail after 5s instead of 30s
       socketTimeoutMS: 45000,
-      maxPoolSize: 1,
-      bufferCommands: false, // Don't queue commands if not connected
+      maxPoolSize: 10, // Allow more concurrent DB operations
+      bufferCommands: false,
     };
 
     cached.promise = mongoose
       .connect(process.env.MONGODB_URI, opts)
-      .then((mongoose) => {
-        return mongoose;
+      .then((m) => {
+        console.log("Database connected 🎇");
+        return m;
       });
   }
 
-  cached.conn = await cached.promise;
-  console.log("Database connected 🎇");
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null; // Clear promise on error so we can retry
+    throw e;
+  }
+
   return cached.conn;
 }
 
