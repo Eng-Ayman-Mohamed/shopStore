@@ -24,8 +24,9 @@ export default function Home({ onAdd, onAddToWishlist, user }) {
 
   return (
     <div>
+      {/* Desktop Hero Section */}
       <motion.div
-        className="header-hero-class"
+        className="header-hero-class hero-desktop"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -66,6 +67,53 @@ export default function Home({ onAdd, onAddToWishlist, user }) {
                     }}
                   />
                 ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Mobile Hero Section */}
+      <motion.div
+        className="hero-mobile"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="hero-mobile-content">
+          <div className="hero-mobile-title">
+            Welcome back{user?.name ? `, ${user.name.split(" ")[0]}` : ""}!
+          </div>
+          <div className="hero-mobile-sub">
+            Discover colorful picks and premium gear
+          </div>
+
+          {/* Mobile Hot Picks */}
+          <div className="hero-mobile-picks">
+            <div className="hero-mobile-picks-header">
+              <span>🔥 Hot picks</span>
+              <a href="/shop" className="hero-mobile-see-all">
+                See all →
+              </a>
+            </div>
+            <div className="hero-mobile-picks-grid">
+              {loading
+                ? [0, 1, 2].map((i) => (
+                    <div
+                      key={i}
+                      className="placeholder placeholder-img"
+                      style={{ width: 80, height: 80, borderRadius: 12 }}
+                    />
+                  ))
+                : products
+                    .slice(0, 3)
+                    .map((p) => (
+                      <img
+                        key={p._id}
+                        src={p.img}
+                        alt=""
+                        className="hero-mobile-pick-img"
+                      />
+                    ))}
+            </div>
           </div>
         </div>
       </motion.div>
