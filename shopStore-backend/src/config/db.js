@@ -12,10 +12,10 @@ async function connectDB() {
     return cached.conn;
   }
 
-  // Ensure DATABASE env variable exists
-  if (!process.env.DATABASE) {
-    throw new Error("DATABASE environment variable is missing");
-  }
+  // // Ensure DATABASE env variable exists
+  // if (!process.env.DATABASE) {
+  //   throw new Error("DATABASE environment variable is missing");
+  // }
 
   // Create a new connection promise if none exists
   if (!cached.promise) {
@@ -27,7 +27,10 @@ async function connectDB() {
     };
 
     cached.promise = mongoose
-      .connect(process.env.DATABASE, opts)
+      .connect(
+        "mongodb+srv://ayman_mohamed_db_user:MONGOshopstoreDB@cluster0.dumlqjd.mongodb.net/shopstore?retryWrites=true&w=majority",
+        opts
+      )
       .then((mongoose) => {
         return mongoose;
       });
