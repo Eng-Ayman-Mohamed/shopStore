@@ -7,16 +7,20 @@ A modern, responsive e-commerce platform built with React frontend and Express.j
 ### Frontend Features
 
 - **Modern UI/UX**: Built with React and Framer Motion animations
-- **Responsive Design**: Mobile-first approach with CSS Grid and Flexbox
+- **Responsive Design**: Mobile-first approach with CSS Grid and Flex box
 - **Authentication System**: User registration, sign-in, and profile management
 - **Product Management**: Browse products, view details, add to cart/wishlist
 - **Shopping Cart**: Add/remove items, quantity management
 - **Wishlist**: Save favorite products for later
-- **Order Management**: Track and manage user orders
+- **Order Management**: Track and manage user orders with local storage
+- **Admin Dashboard**: Complete admin panel with analytics, product management, and CRUD operations
+- **Enhanced Profile Editing**: Advanced profile customization with avatar selection (image upload, colors, emojis)
+- **Image Upload**: Cloudinary integration for avatar and image uploads
 - **Theme Support**: Light/dark theme toggle capability
 - **Real-time Notifications**: Toast notifications for user actions
 - **Filter & Search**: Product filtering and search functionality
 - **Pagination**: Efficient product browsing with pagination
+- **Admin Analytics**: Product statistics, top-rated products, and performance metrics
 
 ### Backend Features
 
@@ -24,10 +28,13 @@ A modern, responsive e-commerce platform built with React frontend and Express.j
 - **MongoDB Integration**: Robust database with Mongoose ODM
 - **User Management**: Authentication and user profile operations
 - **Product Management**: CRUD operations for products
+- **Admin Analytics**: Product statistics and performance metrics aggregation
+- **Advanced Filtering**: Price range, rating, and premium product filtering
 - **Health Monitoring**: API health check endpoints
 - **CORS Support**: Cross-origin resource sharing configuration
 - **Error Handling**: Comprehensive error handling and logging
 - **Data Validation**: Input validation and sanitization
+- **Image Upload Support**: Backend support for image upload operations
 
 ## 🛠 Tech Stack
 
@@ -37,6 +44,8 @@ A modern, responsive e-commerce platform built with React frontend and Express.j
 - **React Router**: Client-side routing
 - **Framer Motion**: Smooth animations and transitions
 - **React Scripts**: Build tooling and development server
+- **Cloudinary**: Image upload and management for avatars
+- **bcryptjs**: Client-side password hashing utilities
 
 ### Backend
 
@@ -56,7 +65,14 @@ shopStore/
 │   ├── public/                   # Static assets
 │   ├── src/
 │   │   ├── components/          # Reusable UI components
+│   │   │   ├── AdminDashboard/  # Admin panel components
+│   │   │   ├── EditProfile/     # Enhanced profile editing components
+│   │   │   └── profile/         # Profile display components
 │   │   ├── pages/               # Application pages/routes
+│   │   │   ├── AdminDashboard.jsx    # Admin dashboard page
+│   │   │   ├── EditProfile.jsx       # Enhanced profile editing
+│   │   │   ├── Orders.jsx            # Order management
+│   │   │   └── CartNew.jsx           # Enhanced cart functionality
 │   │   ├── hooks/               # Custom React hooks
 │   │   ├── context/             # React context providers
 │   │   ├── services/            # API service functions
@@ -85,6 +101,9 @@ The frontend was developed with significant assistance from **GitHub Copilot** a
 - API integration and data flow
 - Responsive design and styling
 - Animation and interaction design
+- **Admin Dashboard Development**: Complete admin panel with analytics and product management
+- **Enhanced Profile System**: Multi-avatar selection and advanced profile editing
+- **Image Upload Integration**: Cloudinary integration for seamless image handling
 
 ### Backend Development
 
@@ -163,12 +182,16 @@ NODE_ENV=development
 
 ### Products
 
-- `GET /api/products` - List all products
+- `GET /api/products` - List all products with filtering and pagination
 - `GET /api/products/:id` - Get product details
 - `POST /api/products` - Create new product (admin)
 - `DELETE /api/products/:id` - Delete product (admin)
-- `GET /api/products/top-rating` - Get top-rated products
-- `GET /api/products/products-details` - Get detailed product information
+- `GET /api/products/top-rating` - Get top-rated premium products
+- `GET /api/products/products-details` - Get analytics and statistics
+
+### Image Upload
+
+- `POST /api/upload` - Upload images (Cloudinary integration)
 
 ## 🎨 Key Components
 
@@ -180,6 +203,24 @@ NODE_ENV=development
 - **Cart**: Shopping cart management
 - **Wishlist**: Saved products management
 - **Toast**: Notification system
+
+#### Admin Components
+
+- **AdminDashboard**: Main admin interface with tab navigation
+- **AdminHeader**: Admin panel header with branding
+- **AdminTabNavigation**: Tab switching between analytics, products, and add product
+- **AnalyticsSection**: Product statistics and performance metrics display
+- **AddProductForm**: Form for creating new products with validation
+- **ProductsListSection**: Paginated product management with search and delete
+- **ProductCardAdmin**: Admin-specific product display with delete functionality
+
+#### Profile Components
+
+- **Profile**: User profile display with avatar and information
+- **EditProfile**: Enhanced profile editing with avatar selection
+- **AvatarSelector**: Multi-type avatar selection (image upload, colors, emojis)
+- **ProfileHeader**: Profile page header with user info
+- **InfoSection**: User information display sections
 
 ### Backend Architecture
 
