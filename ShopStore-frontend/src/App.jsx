@@ -11,6 +11,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/CartNew";
 import Wishlist from "./pages/Wishlist";
 import Orders from "./pages/Orders";
+import AdminDashboard from "./pages/AdminDashboard";
 import Toast from "./components/Toast";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -142,6 +143,10 @@ export default function App() {
                 element={<Cart cart={cart} onRemove={removeFromCart} />}
               />
               <Route path="/orders" element={<Orders />} />
+              <Route
+                path="/admin"
+                element={<AdminDashboard user={user} showToast={showToast} />}
+              />
             </Routes>
           </motion.div>
         </AnimatePresence>

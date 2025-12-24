@@ -186,6 +186,13 @@ export async function getProduct(id) {
   });
 }
 
+export async function createProduct(productData) {
+  return await request(`/products`, {
+    method: "POST",
+    body: productData,
+  });
+}
+
 // Upload an image to a public hosting provider (Cloudinary unsigned upload)
 export async function uploadImage(file) {
   // Environment variables: REACT_APP_CLOUDINARY_CLOUD_NAME and REACT_APP_CLOUDINARY_UPLOAD_PRESET
