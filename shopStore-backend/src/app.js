@@ -13,11 +13,20 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
+// app.js
+
 app.use(
   cors({
     origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "x-user-id", // <--- ADD THIS LINE
+      "X-Requested-With",
+      "Accept",
+    ],
+    credentials: true, // Include this if you're using cookies or sessions
   })
 );
 
