@@ -1,4 +1,5 @@
 import * as api from "../services/api";
+import { hashPassword, comparePassword, isHashedPassword } from "./encryption";
 
 const USERS_STORAGE_KEY = "cs_registered_users";
 
@@ -8,9 +9,10 @@ export function getRegisteredUsers() {
 }
 
 export async function registerUser(email, password, name) {
-  // Try backend registration first
   try {
-    const res = await api.register({ email, password, name });
+    // Hash the password before sending to backend
+    const hashedPassword = await hashPassword(password);
+    const res = await api.register({ email, password: hashedPassword, name });
     if (res.ok) {
       // backend should return { user }
       const { user } = res.data || {};
@@ -27,10 +29,17 @@ export async function registerUser(email, password, name) {
   if (users.some((u) => u.email === email)) {
     return { success: false, error: "Email already registered" };
   }
-  const newUser = { email, password, name, id: Date.now() };
-  users.push(newUser);
-  localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
-  return { success: true, user: { name, email, id: newUser.id } };
+
+  try {
+    // Hash the password before storing in localStorage
+    const hashedPassword = await hashPassword(password);
+    const newUser = { email, password: hashedPassword, name, id: Date.now() };
+    users.push(newUser);
+    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+    return { success: true, user: { name, email, id: newUser.id } };
+  } catch (error) {
+    return { success: false, error: "Failed to encrypt password" };
+  }
 }
 
 export async function validateLogin(email, password) {
@@ -53,9 +62,26 @@ export async function validateLogin(email, password) {
   const users = getRegisteredUsers();
   const user = users.find((u) => u.email === email);
   if (!user) return { success: false, error: "Email not found" };
-  if (user.password !== password)
-    return { success: false, error: "Incorrect password" };
-  const logged = { name: user.name, email: user.email, id: user.id };
-  localStorage.setItem("cs_user_id", String(user.id));
-  return { success: true, user: logged };
+
+  try {
+    // Check if password is hashed or plain text (for backward compatibility)
+    if (isHashedPassword(user.password)) {
+      // Compare hashed password
+      const isPasswordValid = await comparePassword(password, user.password);
+      if (!isPasswordValid) {
+        return { success: false, error: "Incorrect password" };
+      }
+    } else {
+      // Plain text password (legacy support)
+      if (user.password !== password) {
+        return { success: false, error: "Incorrect password" };
+      }
+    }
+
+    const logged = { name: user.name, email: user.email, id: user.id };
+    localStorage.setItem("cs_user_id", String(user.id));
+    return { success: true, user: logged };
+  } catch (error) {
+    return { success: false, error: "Failed to validate password" };
+  }
 }
