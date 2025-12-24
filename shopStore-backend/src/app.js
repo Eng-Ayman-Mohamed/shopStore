@@ -17,10 +17,9 @@ app.use(cors());
 // Or configure specific origins (Recommended)
 app.use(
   cors({
-    origin: process.env.FRONTEND, // Allow only your frontend
+    origin: "*", // Allow all users
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // If using cookies/auth
   })
 );
 
