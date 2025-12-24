@@ -10,6 +10,7 @@ const {
   userWishlist,
   addToWishlist,
   removeFromWishlist,
+  deleteUser,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -25,5 +26,5 @@ router.route("/wishlist/:id").get(userWishlist).post(addToWishlist);
 router.route("/wishlist/:id/:productId").delete(removeFromWishlist);
 
 //User Data
-router.route("/me/:id").get(userData).put(updateUser);
+router.route("/me/:id").get(userData).put(updateUser).delete(deleteUser);
 module.exports = router;

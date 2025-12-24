@@ -38,6 +38,21 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.deleteUser = (req, res) => {
+  try {
+    const userId = req.params.id;
+    User.findByIdAndDelete(userId);
+    res.status(200).json({
+      message: "success",
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: "User not found",
+    });
+  }
+};
+
 //Me
 exports.userData = async (req, res) => {
   try {
