@@ -7,12 +7,10 @@ const Pagination = ({
   hasNextPage,
   hasPrevPage,
 }) => {
-  // Always render pagination for consistency, but disable if only one page
-  const isDisabled = totalPages <= 1;
-
   const handlePrevious = () => {
     if (hasPrevPage) {
       onPageChange(currentPage - 1);
+      
     }
   };
 

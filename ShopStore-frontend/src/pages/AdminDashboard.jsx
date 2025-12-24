@@ -156,6 +156,7 @@ export default function AdminDashboard({ user, showToast }) {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    window.scrollTo(0, 0); // Scroll to top after pagination
   };
 
   // Load analytics data

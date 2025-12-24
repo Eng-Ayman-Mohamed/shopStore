@@ -46,7 +46,7 @@
 
 .admin-tab.active {
   background: var(--primary);
-  color: white;
+  color: var(--text-primary);
 }
 
 .admin-tab:not(.active) {
