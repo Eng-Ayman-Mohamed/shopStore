@@ -12,25 +12,22 @@ async function connectDB() {
     return cached.conn;
   }
 
-  // // Ensure DATABASE env variable exists
-  // if (!process.env.DATABASE) {
-  //   throw new Error("DATABASE environment variable is missing");
-  // }
+  // Ensure DATABASE env variable exists
+  if (!process.env.DATABASE) {
+    throw new Error("DATABASE environment variable is missing");
+  }
 
   // Create a new connection promise if none exists
   if (!cached.promise) {
     const opts = {
-      // Fail fast if MongoDB cannot be reached
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 5000, // Tell Mongoose to fail after 5s, not 30s
       socketTimeoutMS: 45000,
       maxPoolSize: 10,
+      bufferCommands: false, // Don't queue commands if not connected
     };
 
     cached.promise = mongoose
-      .connect(
-        "mongodb+srv://ayman_mohamed_db_user:MONGOshopstoreDB@cluster0.dumlqjd.mongodb.net/shopstore?retryWrites=true&w=majority",
-        opts
-      )
+      .connect(process.env.DATABASE, opts)
       .then((mongoose) => {
         return mongoose;
       });
