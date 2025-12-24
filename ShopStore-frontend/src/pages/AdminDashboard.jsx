@@ -97,7 +97,8 @@ export default function AdminDashboard({ user, showToast }) {
           const estimatedTotalProducts =
             receivedProducts === productsPerPage
               ? currentPage * productsPerPage + 1 // Estimate more products
-              : receivedProducts;
+              : currentPage * productsPerPage -
+                (productsPerPage - receivedProducts); // Calculate actual total
           const estimatedTotalPages = Math.max(
             1,
             Math.ceil(estimatedTotalProducts / productsPerPage)
@@ -107,8 +108,7 @@ export default function AdminDashboard({ user, showToast }) {
             totalProducts: estimatedTotalProducts,
             totalPages: estimatedTotalPages,
             productsPerPage,
-            hasNextPage:
-              receivedProducts === productsPerPage && estimatedTotalPages > 1,
+            hasNextPage: receivedProducts === productsPerPage,
             hasPrevPage: currentPage > 1,
           });
         }
@@ -739,7 +739,9 @@ export default function AdminDashboard({ user, showToast }) {
       )}
 
       {/* Pagination */}
-      {pagination.totalPages > 1 && (
+      {(pagination.totalPages > 1 ||
+        pagination.hasPrevPage ||
+        pagination.hasNextPage) && (
         <div
           style={{
             marginTop: "30px",
@@ -751,8 +753,8 @@ export default function AdminDashboard({ user, showToast }) {
             currentPage={currentPage}
             totalPages={pagination.totalPages}
             onPageChange={handlePageChange}
-            hasNextPage={currentPage < pagination.totalPages}
-            hasPrevPage={currentPage > 1}
+            hasNextPage={pagination.hasNextPage}
+            hasPrevPage={pagination.hasPrevPage}
           />
         </div>
       )}

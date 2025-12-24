@@ -129,6 +129,29 @@ export default function NavBar({ user, onSignOut, cartCount, wishlistCount }) {
         </button>
         {user ? (
           <>
+            {user.role === "admin" && (
+              <Link
+                to="/admin"
+                style={{
+                  color: "var(--accent-gold)",
+                  fontWeight: "600",
+                  textDecoration: "none",
+                  padding: "8px 12px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--accent-gold)",
+                  backgroundColor: "rgba(251, 191, 36, 0.1)",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = "rgba(251, 191, 36, 0.2)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = "rgba(251, 191, 36, 0.1)";
+                }}
+              >
+                🛠️ Admin
+              </Link>
+            )}
             <Link to="/profile">Profile</Link>
             <a
               onClick={onSignOut}
@@ -431,6 +454,34 @@ export default function NavBar({ user, onSignOut, cartCount, wishlistCount }) {
           {/* User Actions */}
           {user ? (
             <>
+              {user.role === "admin" && (
+                <Link
+                  to="/admin"
+                  onClick={closeMobileMenu}
+                  style={{
+                    color: "var(--accent-gold)",
+                    textDecoration: "none",
+                    padding: "12px 16px",
+                    borderRadius: "10px",
+                    backgroundColor: "rgba(251, 191, 36, 0.1)",
+                    border: "1px solid rgba(251, 191, 36, 0.3)",
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    transition: "all 0.2s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = "rgba(251, 191, 36, 0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = "rgba(251, 191, 36, 0.1)";
+                  }}
+                >
+                  🛠️ Admin Dashboard
+                </Link>
+              )}
               <Link
                 to="/profile"
                 onClick={closeMobileMenu}
