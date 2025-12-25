@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const userSchema = mongoose.Schema({
   name: {
@@ -8,11 +9,16 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
+    validate: [
+      validator.isStrongPassword,
+      "Password must be at least 8 characters long and include uppercase, lowercase, and a number.",
+    ],
   },
   email: {
     type: String,
     required: true,
     unique: true,
+    validate: [validator.isEmail, "Please enter a valid email address."],
   },
   role: {
     type: String,

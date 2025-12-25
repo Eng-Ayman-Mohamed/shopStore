@@ -11,10 +11,14 @@ const {
   addToWishlist,
   removeFromWishlist,
   deleteUser,
+  getUsers,
+  usersAnalysis,
 } = require("../controllers/userController");
 
 const router = express.Router();
 
+router.route("/users-analysis").get(usersAnalysis);
+router.route("/").get(getUsers);
 router.post("/register", register);
 router.post("/login", login);
 

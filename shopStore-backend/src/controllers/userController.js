@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const APIFeatures = require("../utils/apiFeatures");
 
 exports.register = async (req, res) => {
   try {
@@ -38,10 +39,30 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.deleteUser = (req, res) => {
+exports.getUsers = async (req, res) => {
+  try {
+    const features = new APIFeatures(User.find(), req.query)
+      .filter()
+      .sort()
+      .fields()
+      .paginate();
+    const usersObj = await features.query;
+    res.status(200).json({
+      message: "success",
+      users: usersObj,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    User.findByIdAndDelete(userId);
+    await User.findByIdAndDelete(userId);
     res.status(200).json({
       message: "success",
     });
@@ -202,6 +223,28 @@ exports.removeFromWishlist = async (req, res) => {
     res.status(404).json({
       status: "fail",
       message: "User not found",
+    });
+  }
+};
+
+exports.usersAnalysis = async (req, res) => {
+  try {
+    const analysis = await User.aggregate([
+      {
+        $group: {
+          _id: "$role",
+          numUsers: { $sum: 1 },
+        },
+      },
+    ]);
+    res.status(200).json({
+      status: "success",
+      analysis,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
     });
   }
 };
