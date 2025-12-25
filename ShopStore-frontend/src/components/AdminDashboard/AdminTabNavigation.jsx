@@ -5,6 +5,7 @@ export default function AdminTabNavigation({ activeTab, setActiveTab }) {
     { id: "analytics", label: "Analytics", icon: "📊" },
     { id: "add", label: "Add Product", icon: "➕" },
     { id: "products", label: "All Products", icon: "📦" },
+    { id: "users", label: "Users", icon: "👥" },
   ];
 
   return (

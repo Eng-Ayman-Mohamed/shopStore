@@ -235,3 +235,40 @@ export async function uploadImage(file) {
     return { ok: false, error: err.message };
   }
 }
+
+// Admin user management functions
+export async function getUsers(filters = {}) {
+  const params = new URLSearchParams();
+
+  // Add filtering parameters
+  if (filters.search) params.append("search", filters.search);
+
+  // Add sorting
+  if (filters.sortBy) params.append("sort", filters.sortBy);
+
+  // Add pagination parameters
+  params.append("limit", filters.limit?.toString() || "20");
+  params.append("page", filters.page?.toString() || "0");
+
+  const queryString = params.toString();
+  const url = `/users${queryString ? `?${queryString}` : ""}`;
+
+  return await request(url, { method: "GET" });
+}
+
+export async function updateUserRole(userId, role) {
+  return await request(`/users/me/${encodeURIComponent(userId)}`, {
+    method: "PUT",
+    body: { profile: { role } },
+  });
+}
+
+export async function deleteUser(userId) {
+  return await request(`/users/${encodeURIComponent(userId)}`, {
+    method: "DELETE",
+  });
+}
+
+export async function getUsersAnalysis() {
+  return await request(`/users/users-analysis`, { method: "GET" });
+}

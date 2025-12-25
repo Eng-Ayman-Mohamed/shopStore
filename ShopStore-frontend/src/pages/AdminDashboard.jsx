@@ -9,6 +9,7 @@ import AdminTabNavigation from "../components/AdminDashboard/AdminTabNavigation"
 import AnalyticsSection from "../components/AdminDashboard/AnalyticsSection";
 import AddProductForm from "../components/AdminDashboard/AddProductForm";
 import ProductsListSection from "../components/AdminDashboard/ProductsListSection";
+import UsersListSection from "../components/AdminDashboard/UsersListSection";
 
 // Import styles
 import "../components/AdminDashboard/AdminDashboard.css";
@@ -24,6 +25,19 @@ export default function AdminDashboard({ user, showToast }) {
   // Analytics data
   const [analytics, setAnalytics] = useState(null);
   const [topProducts, setTopProducts] = useState([]);
+  const [userAnalysis, setUserAnalysis] = useState([]);
+
+  // Users list
+  const [users, setUsers] = useState([]);
+  const [usersLoading, setUsersLoading] = useState(false);
+  const [usersPagination, setUsersPagination] = useState({
+    totalUsers: 0,
+    totalPages: 0,
+    usersPerPage: 20,
+    hasNextPage: false,
+    hasPrevPage: false,
+  });
+  const [usersSearchTerm, setUsersSearchTerm] = useState("");
 
   // Form data for adding products
   const [formData, setFormData] = useState({
@@ -52,10 +66,13 @@ export default function AdminDashboard({ user, showToast }) {
   const loadAnalytics = async () => {
     setLoading(true);
     try {
-      const [analyticsRes, topProductsRes] = await Promise.all([
-        api.getProductsDetails(),
-        api.getTopRatedProducts(),
-      ]);
+      const [analyticsRes, topProductsRes, userAnalysisRes] = await Promise.all(
+        [
+          api.getProductsDetails(),
+          api.getTopRatedProducts(),
+          api.getUsersAnalysis(),
+        ]
+      );
 
       if (analyticsRes.ok) {
         setAnalytics(analyticsRes.data.product[0] || {});
@@ -64,10 +81,116 @@ export default function AdminDashboard({ user, showToast }) {
       if (topProductsRes.ok) {
         setTopProducts(topProductsRes.product || []);
       }
+
+      if (userAnalysisRes.ok) {
+        setUserAnalysis(userAnalysisRes.data.analysis || []);
+      }
     } catch (error) {
       showToast("Failed to load analytics data", "error");
     }
     setLoading(false);
+  };
+
+  const loadUserAnalysis = async () => {
+    try {
+      const res = await api.getUsersAnalysis();
+      if (res.ok) {
+        setUserAnalysis(res.data.analysis || []);
+      }
+    } catch (error) {
+      console.error("Failed to load user analysis:", error);
+    }
+  };
+
+  const loadUsers = async (page = 1) => {
+    setUsersLoading(true);
+    try {
+      const pageParam = page - 1; // Convert 1-based page to 0-based for backend
+      const params = {
+        limit: 20,
+        page: pageParam,
+        sortBy: "-createdAt",
+      };
+
+      if (usersSearchTerm.trim()) {
+        params.search = usersSearchTerm.trim();
+      }
+
+      const res = await api.getUsers(params);
+      if (res.ok && Array.isArray(res.data?.users)) {
+        setUsers(res.data.users);
+
+        // Update pagination metadata if available in response
+        if (res.data.pagination) {
+          setUsersPagination({
+            totalUsers: res.data.pagination.totalUsers || 0,
+            totalPages: res.data.pagination.totalPages || 0,
+            usersPerPage: res.data.pagination.usersPerPage || 20,
+            hasNextPage: res.data.pagination.hasNextPage || false,
+            hasPrevPage: res.data.pagination.hasPrevPage || false,
+          });
+        } else {
+          // Fallback: estimate pagination if backend doesn't provide it
+          const usersPerPage = 20;
+          const receivedUsers = res.data.users.length;
+
+          const estimatedTotalUsers =
+            receivedUsers === usersPerPage
+              ? page * usersPerPage + 1
+              : page * usersPerPage - (usersPerPage - receivedUsers);
+          const estimatedTotalPages = Math.max(
+            1,
+            Math.ceil(estimatedTotalUsers / usersPerPage)
+          );
+
+          setUsersPagination({
+            totalUsers: estimatedTotalUsers,
+            totalPages: estimatedTotalPages,
+            usersPerPage,
+            hasNextPage: receivedUsers === usersPerPage,
+            hasPrevPage: page > 1,
+          });
+        }
+      } else {
+        setUsers([]);
+        setUsersPagination({
+          totalUsers: 0,
+          totalPages: 0,
+          usersPerPage: 20,
+          hasNextPage: false,
+          hasPrevPage: false,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setUsers([]);
+      setUsersPagination({
+        totalUsers: 0,
+        totalPages: 0,
+        usersPerPage: 20,
+        hasNextPage: false,
+        hasPrevPage: false,
+      });
+    } finally {
+      setUsersLoading(false);
+    }
+  };
+
+  const handleUsersPageChange = (newPage) => {
+    loadUsers(newPage);
+    window.scrollTo(0, 0); // Scroll to top after pagination
+  };
+
+  const handleUpdateUserRole = (userId, newRole) => {
+    setUsers((prev) =>
+      prev.map((user) =>
+        user._id === userId ? { ...user, role: newRole } : user
+      )
+    );
+  };
+
+  const handleDeleteUser = (userId) => {
+    setUsers((prev) => prev.filter((user) => user._id !== userId));
   };
 
   const loadProducts = async () => {
@@ -170,6 +293,13 @@ export default function AdminDashboard({ user, showToast }) {
       loadProducts();
     }
   }, [activeTab, currentPage, searchTerm]);
+
+  // Load users when on users tab
+  useEffect(() => {
+    if (activeTab === "users") {
+      loadUsers();
+    }
+  }, [activeTab, usersSearchTerm]);
 
   // Check admin access after all hooks are called
   if (!user || user.role !== "admin") {
@@ -307,6 +437,7 @@ export default function AdminDashboard({ user, showToast }) {
           <AnalyticsSection
             analytics={analytics}
             topProducts={topProducts}
+            userAnalysis={userAnalysis}
             loading={loading}
           />
         );
@@ -331,6 +462,20 @@ export default function AdminDashboard({ user, showToast }) {
             handlePageChange={handlePageChange}
             productsLoading={productsLoading}
             onDeleteProduct={handleDeleteProduct}
+          />
+        );
+      case "users":
+        return (
+          <UsersListSection
+            users={users}
+            searchTerm={usersSearchTerm}
+            setSearchTerm={setUsersSearchTerm}
+            currentPage={1}
+            pagination={usersPagination}
+            handlePageChange={handleUsersPageChange}
+            usersLoading={usersLoading}
+            onUpdateUserRole={handleUpdateUserRole}
+            onDeleteUser={handleDeleteUser}
           />
         );
       default:

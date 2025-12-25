@@ -14,6 +14,7 @@ A modern, responsive e-commerce platform built with React frontend and Express.j
 - **Wishlist**: Save favorite products for later
 - **Order Management**: Track and manage user orders with local storage
 - **Admin Dashboard**: Complete admin panel with analytics, product management, and CRUD operations
+- **User Management**: Admin user management with role assignment, mobile-responsive table with intelligent column hiding
 - **Enhanced Profile Editing**: Advanced profile customization with avatar selection (image upload, colors, emojis)
 - **Image Upload**: Cloudinary integration for avatar and image uploads
 - **Theme Support**: Light/dark theme toggle capability
@@ -167,6 +168,9 @@ NODE_ENV=development
 
 - `GET /api/users/me/:id` - Get user data
 - `PUT /api/users/me/:id` - Update user data
+- `GET /api/users` - List all users with pagination and search (admin)
+- `GET /api/users/users-analysis` - Get user analytics and statistics (admin)
+- `DELETE /api/users/:id` - Delete user (admin)
 
 ### Shopping Cart
 
@@ -208,10 +212,11 @@ NODE_ENV=development
 
 - **AdminDashboard**: Main admin interface with tab navigation
 - **AdminHeader**: Admin panel header with branding
-- **AdminTabNavigation**: Tab switching between analytics, products, and add product
+- **AdminTabNavigation**: Tab switching between analytics, products, add product, and users
 - **AnalyticsSection**: Product statistics and performance metrics display
 - **AddProductForm**: Form for creating new products with validation
 - **ProductsListSection**: Paginated product management with search and delete
+- **UsersListSection**: Mobile-responsive user management with role assignment and intelligent column hiding
 - **ProductCardAdmin**: Admin-specific product display with delete functionality
 
 #### Profile Components
@@ -247,6 +252,14 @@ The application is fully responsive and optimized for:
 - Tablets
 - Mobile devices
 - Various screen sizes and orientations
+
+### Mobile User Management Features
+
+- **Intelligent Column Hiding**: On screens ≤768px, the user management table shows only essential columns (Name, Role, Actions) while hiding Email, Phone, and Joined Date
+- **Progressive Disclosure**: Column visibility adapts based on screen size for optimal mobile experience
+- **Touch-Optimized Interface**: Button sizes and spacing optimized for mobile interaction
+- **Horizontal Scrolling Support**: Full table functionality maintained with scrollable mobile layout
+- **Responsive Typography**: Font sizes and spacing scale appropriately for different screen sizes
 
 ## 🎯 Future Enhancements
 
