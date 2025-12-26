@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import * as api from "../services/api";
+import { getCategoryIcon, getCategoryColor } from "../utils/categories";
 
 export default function ProductDetails({ onAdd, onAddToWishlist }) {
   const { id } = useParams();
@@ -164,6 +165,31 @@ export default function ProductDetails({ onAdd, onAddToWishlist }) {
                     {product.avgRating}
                   </span>
                   <span>({product.ratingQuantity} reviews)</span>
+                </div>
+              )}
+
+              {/* Category Display */}
+              {product.category && (
+                <div
+                  style={{
+                    marginTop: 12,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "6px 16px",
+                    background: "rgba(0, 215, 255, 0.05)",
+                    border: `1px solid ${getCategoryColor(product.category)}`,
+                    borderRadius: "20px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    color: "var(--text-primary)",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <span style={{ fontSize: "16px" }}>
+                    {getCategoryIcon(product.category)}
+                  </span>
+                  <span>{product.category}</span>
                 </div>
               )}
 
