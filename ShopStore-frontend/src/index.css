@@ -1919,3 +1919,169 @@ body {
     font-size: 12px;
   }
 }
+
+/* ==========================================
+   PRODUCT DETAILS IMAGE HOVER EFFECT
+   ========================================== */
+
+.product-details-image {
+  transition: all 0.3s ease;
+}
+
+.product-details-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3);
+}
+
+/* ==========================================
+   IMAGE MODAL STYLES
+   ========================================== */
+
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.image-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.image-modal-close:hover {
+  background: rgba(239, 68, 68, 1);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.image-modal-close:focus {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+.image-modal-img {
+  width: 100%;
+  height: auto;
+  max-width: 80vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  cursor: zoom-out;
+  transition: all 0.3s ease;
+}
+
+.image-modal-img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* Mobile Responsive Modal Styles */
+@media (max-width: 768px) {
+  .image-modal-overlay {
+    padding: 10px;
+  }
+
+  .image-modal-content {
+    max-width: 95vw;
+    max-height: 95vh;
+    padding: 15px;
+  }
+
+  .image-modal-close {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .image-modal-img {
+    max-width: 90vw;
+    max-height: 85vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-modal-overlay {
+    padding: 5px;
+  }
+
+  .image-modal-content {
+    max-width: 98vw;
+    max-height: 98vh;
+    padding: 10px;
+  }
+
+  .image-modal-close {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    top: 5px;
+    right: 5px;
+  }
+
+  .image-modal-img {
+    max-width: 95vw;
+    max-height: 90vh;
+  }
+}
