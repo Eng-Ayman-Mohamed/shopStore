@@ -418,6 +418,29 @@ export default function AdminDashboard({ user, showToast }) {
     }
   };
 
+  const handleUpdateDiscount = async (productId, discount) => {
+    try {
+      const res = await api.updateProduct(productId, { discount });
+      if (res.ok) {
+        // Update the product in the local state
+        setProducts((prev) =>
+          prev.map((p) =>
+            p._id === productId ? { ...p, discount: discount } : p
+          )
+        );
+        showToast(`Discount updated successfully`, "success");
+        // Refetch analytics data after discount update
+        loadAnalytics();
+      } else {
+        showToast(res.error || "Failed to update discount", "error");
+        throw new Error(res.error || "Failed to update discount");
+      }
+    } catch (error) {
+      showToast("Failed to update discount", "error");
+      throw error;
+    }
+  };
+
   const handleClearForm = () => {
     setFormData({
       title: "",
@@ -462,6 +485,7 @@ export default function AdminDashboard({ user, showToast }) {
             handlePageChange={handlePageChange}
             productsLoading={productsLoading}
             onDeleteProduct={handleDeleteProduct}
+            onUpdateDiscount={handleUpdateDiscount}
           />
         );
       case "users":

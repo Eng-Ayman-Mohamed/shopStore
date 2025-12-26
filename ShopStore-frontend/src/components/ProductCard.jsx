@@ -64,7 +64,47 @@ export default function ProductCard({
       >
         <div style={{ flex: 1 }}>
           <div className="product-title">{product?.title}</div>
-          <div className="product-price">${product?.price}</div>
+          <div className="product-price">
+            {product?.discount > 0 ? (
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
+                <span
+                  style={{
+                    color: "var(--accent-cyan)",
+                    fontSize: "18px",
+                    fontWeight: "800",
+                  }}
+                >
+                  ${(product.price * (1 - product.discount / 100)).toFixed(2)}
+                </span>
+                <span
+                  style={{
+                    color: "var(--text-muted)",
+                    fontSize: "14px",
+                    textDecoration: "line-through",
+                  }}
+                >
+                  ${product.price}
+                </span>
+                <span
+                  style={{
+                    background:
+                      "linear-gradient(135deg, var(--accent-cyan), var(--accent-purple))",
+                    color: "var(--bg-dark)",
+                    padding: "2px 6px",
+                    borderRadius: "8px",
+                    fontSize: "10px",
+                    fontWeight: "700",
+                  }}
+                >
+                  -{product.discount}%
+                </span>
+              </div>
+            ) : (
+              <span>${product?.price}</span>
+            )}
+          </div>
 
           {/* Rating Display */}
           {product?.avgRating && (

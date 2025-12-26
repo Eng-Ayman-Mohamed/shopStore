@@ -9,6 +9,7 @@ export default function Home({ onAdd, onAddToWishlist, user }) {
   const [products, setProducts] = useState([]);
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [topRatedProducts, setTopRatedProducts] = useState([]);
+  const [discountedProducts, setDiscountedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userStats, setUserStats] = useState(null);
 
@@ -18,22 +19,37 @@ export default function Home({ onAdd, onAddToWishlist, user }) {
     const fetchData = async () => {
       try {
         // Fetch multiple data sources
-        const [premiumRes, trendingRes, topRatedRes, purchasesRes] =
-          await Promise.all([
-            api.getProducts({
-              premiumOnly: true,
-              sortBy: "-avgRating",
-              limit: 8,
-            }),
-            api.getProducts({ sortBy: "-avgRating", limit: 6 }),
-            api.getTopRatedProducts(),
-            user ? api.getUserPurchases() : Promise.resolve({ ok: false }),
-          ]);
+        const [
+          premiumRes,
+          trendingRes,
+          topRatedRes,
+          discountedRes,
+          purchasesRes,
+        ] = await Promise.all([
+          api.getProducts({
+            premiumOnly: true,
+            sortBy: "-avgRating",
+            limit: 8,
+          }),
+          api.getProducts({ sortBy: "-avgRating", limit: 6 }),
+          api.getTopRatedProducts(),
+          api.getProducts({ sortBy: "-discount", limit: 8 }),
+          user ? api.getUserPurchases() : Promise.resolve({ ok: false }),
+        ]);
 
         if (!mounted) return;
 
         if (premiumRes.ok && Array.isArray(premiumRes.data?.products)) {
-          setProducts(premiumRes.data.products);
+          const allProducts = premiumRes.data.products;
+          setProducts(allProducts);
+        }
+
+        if (discountedRes.ok && Array.isArray(discountedRes.data?.products)) {
+          // Filter products that have actual discounts
+          const discounted = discountedRes.data.products.filter(
+            (product) => product.discount > 0
+          );
+          setDiscountedProducts(discounted);
         }
 
         if (trendingRes.ok && Array.isArray(trendingRes.data?.products)) {
@@ -210,58 +226,64 @@ export default function Home({ onAdd, onAddToWishlist, user }) {
         </div>
       </motion.section>
 
-      {/* Deals of the Day Section */}
-      <motion.section
-        className="deals-section"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-      >
-        <div className="section-header">
-          <h3 className="section-title">
-            ⚡ Deals of the Day
-            <span className="deal-timer">⏰ Limited Time</span>
-          </h3>
-          <a href="/shop" className="text-link">
-            See all deals →
-          </a>
-        </div>
+      {/* Deals of the Day Section - Only show if there are discounted products */}
+      {discountedProducts.length > 0 && (
+        <motion.section
+          className="deals-section"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <div className="section-header">
+            <h3 className="section-title">
+              ⚡ Deals of the Day
+              <span className="deal-timer">⏰ Limited Time</span>
+            </h3>
+            <a href="/shop" className="text-link">
+              See all deals →
+            </a>
+          </div>
 
-        <div className="deals-grid">
-          {products.slice(0, 4).map((product, index) => (
-            <motion.div
-              key={`deal-${product._id}`}
-              className="deal-card"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              whileHover={{ scale: 1.03 }}
-            >
-              <div className="deal-badge">-25%</div>
-              <img
-                src={product.img}
-                alt={product.title}
-                className="deal-image"
-              />
-              <div className="deal-content">
-                <h4 className="deal-title">{product.title}</h4>
-                <div className="deal-pricing">
-                  <span className="deal-price">
-                    ${(product.price * 0.75).toFixed(2)}
-                  </span>
-                  <span className="deal-original">${product.price}</span>
-                </div>
-                <button
-                  className="deal-button"
-                  onClick={() => onAdd && onAdd(product)}
+          <div className="deals-grid">
+            {discountedProducts.slice(0, 4).map((product, index) => {
+              const discountedPrice =
+                product.price * (1 - product.discount / 100);
+              return (
+                <motion.div
+                  key={`deal-${product._id}`}
+                  className="deal-card"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.03 }}
                 >
-                  Grab Deal
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
+                  <div className="deal-badge">-{product.discount}%</div>
+                  <img
+                    src={product.img}
+                    alt={product.title}
+                    className="deal-image"
+                  />
+                  <div className="deal-content">
+                    <h4 className="deal-title">{product.title}</h4>
+                    <div className="deal-pricing">
+                      <span className="deal-price">
+                        ${discountedPrice.toFixed(2)}
+                      </span>
+                      <span className="deal-original">${product.price}</span>
+                    </div>
+                    <button
+                      className="deal-button"
+                      onClick={() => onAdd && onAdd(product)}
+                    >
+                      Grab Deal
+                    </button>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.section>
+      )}
 
       {/* Top Rated Section */}
       {topRatedProducts.length > 0 && (

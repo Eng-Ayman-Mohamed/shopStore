@@ -11,6 +11,7 @@ export default function ProductsListSection({
   handlePageChange,
   productsLoading,
   onDeleteProduct,
+  onUpdateDiscount,
 }) {
   const renderSearchControls = () => (
     <div className="search-controls">
@@ -65,6 +66,7 @@ export default function ProductsListSection({
           key={product._id}
           product={product}
           onDelete={onDeleteProduct}
+          onUpdateDiscount={onUpdateDiscount}
         />
       ))}
     </div>

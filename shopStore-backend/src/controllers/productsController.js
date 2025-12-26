@@ -51,6 +51,28 @@ exports.createProduct = async (req, res) => {
   }
 };
 
+exports.updateProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const updatedProduct = req.body;
+    const product = await Product.findByIdAndUpdate(productId, updatedProduct, {
+      new: true,
+      runValidators: true,
+      select: "-__v ",
+    });
+
+    res.status(200).json({
+      message: "success",
+      product,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
 exports.deleteProduct = async (req, res) => {
   try {
     const productId = req.params.id;

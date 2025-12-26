@@ -1,4 +1,4 @@
-const API_BASE = process.env.REACT_APP_API_BASE;
+const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:8000/api";
 
 async function request(path, options = {}) {
   const userId = localStorage.getItem("cs_user_id");
@@ -166,6 +166,7 @@ export async function getProducts(filters = {}) {
   if (filters.maxPrice) params.append("price[lte]", filters.maxPrice);
   if (filters.minRating) params.append("avgRating[gte]", filters.minRating);
   if (filters.premiumOnly) params.append("premium", true);
+  if (filters.discountedOnly) params.append("discount[gt]", "0");
   if (filters.category) params.append("category", filters.category);
 
   // Add sorting
@@ -191,6 +192,13 @@ export async function createProduct(productData) {
   return await request(`/products`, {
     method: "POST",
     body: productData,
+  });
+}
+
+export async function updateProduct(productId, updateData) {
+  return await request(`/products/${encodeURIComponent(productId)}`, {
+    method: "PUT",
+    body: updateData,
   });
 }
 

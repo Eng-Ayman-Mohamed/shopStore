@@ -14,7 +14,15 @@ export default function Cart({ cart, onRemove, user, onPaymentSuccess }) {
       </div>
     );
 
-  const total = cart.reduce((s, i) => s + (i.price || 0), 0);
+  // Calculate discounted price for each item
+  const getDiscountedPrice = (item) => {
+    if (item.discount && item.discount > 0) {
+      return item.price * (1 - item.discount / 100);
+    }
+    return item.price;
+  };
+
+  const total = cart.reduce((s, i) => s + (getDiscountedPrice(i) || 0), 0);
 
   const handlePayment = async () => {
     if (!user) {
@@ -79,7 +87,40 @@ export default function Cart({ cart, onRemove, user, onPaymentSuccess }) {
             />
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 700 }}>{c.title}</div>
-              <div className="small">${c.price}</div>
+              <div className="small">
+                {c.discount && c.discount > 0 ? (
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  >
+                    <span
+                      style={{
+                        textDecoration: "line-through",
+                        color: "var(--muted)",
+                      }}
+                    >
+                      ${c.price.toFixed(2)}
+                    </span>
+                    <span
+                      style={{ fontWeight: 700, color: "var(--accent-cyan)" }}
+                    >
+                      ${getDiscountedPrice(c).toFixed(2)}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color: "#22c55e",
+                        background: "rgba(34, 197, 94, 0.1)",
+                        padding: "2px 6px",
+                        borderRadius: "4px",
+                      }}
+                    >
+                      {c.discount}% OFF
+                    </span>
+                  </div>
+                ) : (
+                  <span>${c.price.toFixed(2)}</span>
+                )}
+              </div>
             </div>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <button

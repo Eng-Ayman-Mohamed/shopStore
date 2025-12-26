@@ -130,6 +130,43 @@ const PremiumCheckbox = memo(({ pendingFilters, handleInputChange }) => (
   </div>
 ));
 
+const DiscountCheckbox = memo(({ pendingFilters, handleInputChange }) => (
+  <div className="field">
+    <label
+      style={{
+        color: "var(--text-secondary)",
+        marginBottom: "8px",
+        display: "block",
+        fontSize: "13px",
+      }}
+    >
+      Special Offers
+    </label>
+    <label
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        cursor: "pointer",
+        color: "var(--text-primary)",
+        fontSize: "13px",
+      }}
+    >
+      <input
+        type="checkbox"
+        checked={pendingFilters.discountedOnly}
+        onChange={(e) => handleInputChange("discountedOnly", e.target.checked)}
+        style={{
+          width: "16px",
+          height: "16px",
+          accentColor: "var(--accent-cyan)",
+        }}
+      />
+      Products with Discount
+    </label>
+  </div>
+));
+
 const CategorySelect = memo(
   ({ pendingFilters, handleInputChange, categories }) => (
     <div className="field">
@@ -172,6 +209,7 @@ export default function FilterPanel({
     maxPrice: "",
     minRating: "",
     premiumOnly: false,
+    discountedOnly: false,
     sortBy: "price",
     category: "",
     ...initialFilters,
@@ -215,6 +253,7 @@ export default function FilterPanel({
       maxPrice: "",
       minRating: "",
       premiumOnly: false,
+      discountedOnly: false,
       sortBy: "price",
       category: "",
     };
@@ -274,6 +313,10 @@ export default function FilterPanel({
             handleInputChange={handleInputChange}
           />
           <PremiumCheckbox
+            pendingFilters={pendingFilters}
+            handleInputChange={handleInputChange}
+          />
+          <DiscountCheckbox
             pendingFilters={pendingFilters}
             handleInputChange={handleInputChange}
           />
@@ -386,6 +429,10 @@ export default function FilterPanel({
               handleInputChange={handleInputChange}
             />
             <PremiumCheckbox
+              pendingFilters={pendingFilters}
+              handleInputChange={handleInputChange}
+            />
+            <DiscountCheckbox
               pendingFilters={pendingFilters}
               handleInputChange={handleInputChange}
             />
