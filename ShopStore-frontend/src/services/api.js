@@ -166,6 +166,7 @@ export async function getProducts(filters = {}) {
   if (filters.maxPrice) params.append("price[lte]", filters.maxPrice);
   if (filters.minRating) params.append("avgRating[gte]", filters.minRating);
   if (filters.premiumOnly) params.append("premium", true);
+  if (filters.category) params.append("category", filters.category);
 
   // Add sorting
   if (filters.sortBy) params.append("sort", filters.sortBy);

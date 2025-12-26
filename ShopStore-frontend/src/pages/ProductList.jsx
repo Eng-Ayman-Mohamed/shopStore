@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import FilterPanel from "../components/FilterPanel";
 import Pagination from "../components/Pagination";
 import * as api from "../services/api";
 
 export default function ProductList({ onAdd, onAddToWishlist }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({});
@@ -16,6 +19,22 @@ export default function ProductList({ onAdd, onAddToWishlist }) {
     hasNextPage: false,
     hasPrevPage: false,
   });
+
+  // Combined effect: Initialize filters AND fetch products
+  useEffect(() => {
+    const category = searchParams.get("category");
+    const initialFilters = {};
+
+    if (category) {
+      initialFilters.category = category;
+    }
+
+    setFilters(initialFilters);
+
+    // Fetch products immediately with the current filters
+    const filtersWithPage = { ...initialFilters, page: currentPage };
+    fetchProducts(filtersWithPage);
+  }, [searchParams]); // Only depend on searchParams, not filters
 
   const fetchProducts = useCallback(async (currentFilters = {}) => {
     setLoading(true);
@@ -79,24 +98,32 @@ export default function ProductList({ onAdd, onAddToWishlist }) {
     }
   }, []);
 
-  useEffect(() => {
-    let mounted = true;
-    const filtersWithPage = { ...filters, page: currentPage };
-    fetchProducts(filtersWithPage);
-    return () => (mounted = false);
-  }, [fetchProducts, currentPage]);
+  // Removed the second useEffect - combined effect above handles all fetching
 
   const handleFilterChange = (newFilters) => {
+    // Update URL to sync with category changes
+    const newSearchParams = new URLSearchParams(searchParams);
+
+    if (newFilters.category) {
+      newSearchParams.set("category", newFilters.category);
+    } else {
+      newSearchParams.delete("category");
+    }
+
+    setSearchParams(newSearchParams, { replace: true });
+
     setFilters(newFilters);
     setCurrentPage(1); // Reset to first page when filters change
-    const filtersWithPage = { ...newFilters, page: 1 };
-    fetchProducts(filtersWithPage);
+    // Let the useEffect handle the API call to avoid double-fetching
   };
 
   const handleClearFilters = () => {
+    // Clear URL parameters
+    setSearchParams({}, { replace: true });
+
     setFilters({});
     setCurrentPage(1); // Reset to first page when clearing filters
-    fetchProducts({ page: 1 });
+    // Let the useEffect handle the API call to avoid double-fetching
   };
 
   const handlePageChange = (newPage) => {
@@ -104,13 +131,20 @@ export default function ProductList({ onAdd, onAddToWishlist }) {
     window.scrollTo(0, 0); // Scroll to top after pagination
   };
 
+  // Get the current category from filters for display
+  const currentCategory = filters.category;
+  const pageTitle = currentCategory
+    ? `${currentCategory} Products`
+    : "All Products";
+
   return (
     <div>
-      <h2 style={{ marginTop: 8 }}>All Products</h2>
+      <h2 style={{ marginTop: 8 }}>{pageTitle}</h2>
 
       <FilterPanel
         onFilterChange={handleFilterChange}
         onClearFilters={handleClearFilters}
+        initialFilters={filters}
       />
 
       <div className="grid" style={{ marginTop: 12 }}>
