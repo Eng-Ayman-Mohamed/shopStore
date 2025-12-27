@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ProductCard from "../components/ProductCard";
 import * as api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
 export default function Home({ onAdd, onAddToWishlist, user }) {
   const navigate = useNavigate();
@@ -185,11 +186,11 @@ export default function Home({ onAdd, onAddToWishlist, user }) {
 
         <div className="grid trending-grid">
           {loading
-            ? Array.from({ length: 5 }).map((_, i) => (
+            ? Array.from({ length: 4 }).map((_, i) => (
                 <ProductCard key={`th-${i}`} loading={true} />
               ))
             : trendingProducts
-                .slice(0, 5)
+                .slice(0, 4)
                 .map((p) => (
                   <ProductCard
                     key={p._id}

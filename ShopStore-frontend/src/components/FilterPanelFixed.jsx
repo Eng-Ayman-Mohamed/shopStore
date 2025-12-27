@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import "./FilterPanel.css";
 
 const SimpleCategorySelect = ({ value, onChange, categories, onKeyDown }) => {
   return (

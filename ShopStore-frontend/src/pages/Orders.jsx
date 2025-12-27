@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getUserPurchases } from "../services/api";
+import "./Orders.css";
 
 export default function Orders() {
   const [purchases, setPurchases] = useState([]);

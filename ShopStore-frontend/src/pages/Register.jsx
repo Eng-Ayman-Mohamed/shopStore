@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUser } from "../utils/auth";
+import "./Auth.css";
 
 export default function Register({ onRegister }) {
   const [name, setName] = useState("");

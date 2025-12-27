@@ -4,6 +4,7 @@ import ProductCard from "../components/ProductCard";
 import FilterPanel from "../components/FilterPanelFixed";
 import Pagination from "../components/Pagination";
 import * as api from "../services/api";
+import "./ProductList.css";
 
 export default function ProductList({ onAdd, onAddToWishlist }) {
   const [searchParams, setSearchParams] = useSearchParams();

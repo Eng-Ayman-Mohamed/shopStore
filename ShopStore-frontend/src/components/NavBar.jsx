@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import useBackendStatus from "../hooks/useBackendStatus";
+import "./NavBar.css";
 
 export default function NavBar({ user, onSignOut, cartCount, wishlistCount }) {
   const { isDarkMode, toggleTheme } = useTheme();

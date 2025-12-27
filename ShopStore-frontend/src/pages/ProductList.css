@@ -1,0 +1,162 @@
+/* ProductList Page Specific Styles */
+
+/* ==========================================
+   PRODUCT GRID STYLES
+   ========================================== */
+
+/* Product Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Special handling for single product - center it with max width */
+.grid:has(.card:nth-child(1):last-child) {
+  grid-template-columns: 1fr;
+  max-width: 400px;
+}
+
+/* Two products - each takes reasonable width */
+.grid:has(.card:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 600px;
+}
+
+/* Three products - balanced layout */
+.grid:has(.card:nth-child(3):last-child) {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 900px;
+}
+
+/* ==========================================
+   SECTION HEADER STYLES
+   ========================================== */
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.text-link {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.text-link:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================
+   MOBILE RESPONSIVENESS
+   ========================================== */
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .section-header {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .text-link {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .section-header {
+    margin-bottom: 16px;
+  }
+
+  .text-link {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   EMPTY STATE STYLES
+   ========================================== */
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+  font-size: 16px;
+  background: rgba(100, 116, 139, 0.05);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  margin-top: 32px;
+}
+
+.empty-state h3 {
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.empty-state p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .empty-state {
+    padding: 30px 20px;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  .empty-state h3 {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================
+   LOADING STATE STYLES
+   ========================================== */
+
+.loading-state {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .loading-state {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-state {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+}

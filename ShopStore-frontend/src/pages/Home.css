@@ -1,0 +1,549 @@
+/* Home Page Specific Styles */
+
+/* ==========================================
+   HERO SECTION STYLES
+   ========================================== */
+
+/* Optimized Hero Section */
+.header-hero-class {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.1),
+    rgba(244, 114, 182, 0.05)
+  );
+  border: 1px solid var(--card-border);
+  border-radius: 32px;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(var(--blur-strength));
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+/* Modern Animated Border Glow */
+.header-hero-class::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    var(--accent-cyan),
+    transparent,
+    var(--accent-purple)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Hero Content */
+.hero-text-content {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(32px, 8vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-sub {
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.6;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* ==========================================
+   CATEGORIES SECTION
+   ========================================== */
+
+.categories-section {
+  margin-bottom: 40px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.category-card:hover::before {
+  left: 100%;
+}
+
+.category-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-cyan);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 217, 255, 0.2);
+}
+
+.category-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.1);
+}
+
+.category-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.category-card:hover .category-name {
+  color: var(--accent-cyan);
+}
+
+/* ==========================================
+   TRENDING SECTION
+   ========================================== */
+
+.trending-section {
+  margin-bottom: 40px;
+}
+
+.trending-badge {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 4px 8px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  color: white;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+  }
+}
+
+.trending-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* ==========================================
+   DEALS SECTION
+   ========================================== */
+
+.deals-section {
+  margin: 40px 0;
+}
+
+.deal-timer {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 4px 8px;
+  background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+  color: white;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.deals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Special handling for single product - center it with max width */
+.deals-grid:has(.deal-card:nth-child(1):last-child) {
+  grid-template-columns: 1fr;
+  max-width: 400px;
+}
+
+/* Two products - each takes 45% to create gap */
+.deals-grid:has(.deal-card:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 700px;
+}
+
+.deal-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.deal-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-cyan);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(255, 159, 67, 0.2);
+}
+
+.deal-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.deal-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.deal-card:hover .deal-image {
+  transform: scale(1.05);
+}
+
+.deal-content {
+  padding: 20px;
+}
+
+.deal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.deal-pricing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.deal-price {
+  font-size: 20px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.deal-original {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.deal-button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3);
+}
+
+.deal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 159, 67, 0.4);
+}
+
+/* ==========================================
+   MOBILE RESPONSIVENESS
+   ========================================== */
+
+/* Hero Section Mobile Optimizations */
+.header-hero-class {
+  transition: all 0.3s ease;
+}
+
+/* Desktop Hero Section */
+.hero-desktop {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .header-hero-class {
+    padding: 40px 20px;
+    border-radius: 24px;
+    margin: 20px auto;
+    width: 95%;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+}
+
+/* Mobile Hero Section */
+.hero-mobile {
+  display: none;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.1),
+    rgba(244, 114, 182, 0.05)
+  );
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--card-shadow);
+}
+
+.hero-mobile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-mobile-title {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.hero-mobile-sub {
+  color: var(--text-secondary);
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .hero-desktop {
+    display: none;
+  }
+
+  .hero-mobile {
+    display: block;
+  }
+
+  .hero-mobile-title {
+    font-size: 22px;
+  }
+
+  .hero-mobile-sub {
+    font-size: 14px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .category-card {
+    padding: 20px 12px;
+  }
+
+  .category-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .category-name {
+    font-size: 13px;
+  }
+
+  .deals-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .deal-content {
+    padding: 16px;
+  }
+
+  .deal-title {
+    font-size: 14px;
+  }
+
+  .deal-price {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-hero-class {
+    padding: 16px;
+    gap: 16px;
+    border-radius: 16px;
+  }
+
+  .hero-title {
+    font-size: 22px;
+  }
+
+  .hero-sub {
+    font-size: 13px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .deals-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 24px;
+  }
+  .header-hero-class {
+    padding: 24px;
+    gap: 16px;
+  }
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced hero section */
+.header-hero-class {
+  position: relative;
+  overflow: hidden;
+}
+
+.header-hero-class::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(0, 217, 255, 0.1),
+    transparent,
+    rgba(167, 139, 250, 0.1),
+    transparent
+  );
+  animation: rotateGradient 30s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes rotateGradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-hero-class::before {
+    animation-duration: 40s;
+  }
+}

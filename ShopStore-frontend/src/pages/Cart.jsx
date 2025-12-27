@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import "./Cart.css";
 
 export default function Cart({ cart, onRemove }) {
   if (!cart || cart.length === 0)

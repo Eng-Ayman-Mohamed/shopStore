@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./Footer.css";
 
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(false);
@@ -255,7 +256,7 @@ export default function Footer() {
               All Products
             </Link>
             <Link
-              to="/shop"
+              to="/"
               style={footerLinkStyle}
               onMouseEnter={(e) =>
                 (e.target.style.color = "var(--accent-cyan)")
@@ -267,7 +268,7 @@ export default function Footer() {
               New Arrivals
             </Link>
             <a
-              href="#"
+              href="/"
               style={footerLinkStyle}
               onMouseEnter={(e) =>
                 (e.target.style.color = "var(--accent-cyan)")

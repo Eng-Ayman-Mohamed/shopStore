@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import * as api from "../services/api";
 import { getCategoryIcon, getCategoryColor } from "../utils/categories";
+import "./ProductDetails.css";
 
 export default function ProductDetails({ onAdd, onAddToWishlist }) {
   const { id } = useParams();

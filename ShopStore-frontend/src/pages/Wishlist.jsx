@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import "./Wishlist.css";
 
 export default function Wishlist({ wishlist, onRemove, onAdd, user }) {
   const navigate = useNavigate();

@@ -1,0 +1,533 @@
+/* Pagination Component Specific Styles */
+
+/* ==========================================
+   PAGINATION CONTAINER
+   ========================================== */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+}
+
+/* ==========================================
+   PAGINATION BUTTONS
+   ========================================== */
+
+.pagination-btn {
+  padding: 8px 12px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pagination-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.3s ease;
+}
+
+.pagination-btn:hover::before {
+  left: 100%;
+}
+
+/* Primary pagination buttons */
+.pagination-btn.primary {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  color: var(--bg-dark);
+  border: 1px solid var(--accent-cyan);
+  box-shadow: 0 2px 8px rgba(0, 217, 255, 0.2);
+}
+
+.pagination-btn.primary:hover {
+  background: linear-gradient(135deg, #00e5ff, #b794f6);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
+}
+
+/* Active/current page */
+.pagination-btn.active {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  color: var(--bg-dark);
+  border-color: var(--accent-cyan);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
+}
+
+.pagination-btn.active:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.4);
+}
+
+/* Disabled buttons */
+.pagination-btn:disabled {
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  border-color: rgba(100, 116, 139, 0.2);
+  transform: none;
+  box-shadow: none;
+}
+
+.pagination-btn:disabled::before {
+  display: none;
+}
+
+/* Navigation buttons (Previous/Next) */
+.pagination-btn.nav {
+  min-width: 80px;
+  font-weight: 600;
+}
+
+.pagination-btn.nav:hover:not(:disabled) {
+  background: rgba(0, 217, 255, 0.05);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  transform: translateY(-1px);
+}
+
+/* ==========================================
+   PAGE NUMBER BUTTONS
+   ========================================== */
+
+.pagination-page-btn {
+  padding: 8px 12px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pagination-page-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 217, 255, 0.1),
+    transparent
+  );
+  transition: left 0.3s ease;
+}
+
+.pagination-page-btn:hover::before {
+  left: 100%;
+}
+
+.pagination-page-btn:hover {
+  background: rgba(0, 217, 255, 0.05);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  transform: translateY(-1px);
+}
+
+.pagination-page-btn.active {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  color: var(--bg-dark);
+  border-color: var(--accent-cyan);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
+}
+
+.pagination-page-btn.active:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.4);
+}
+
+/* ==========================================
+   ELLIPSIS
+   ========================================== */
+
+.pagination-ellipsis {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 4px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+
+/* ==========================================
+   PAGINATION CONTAINER VARIANTS
+   ========================================== */
+
+.pagination.compact {
+  gap: 4px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.pagination.compact .pagination-btn,
+.pagination.compact .pagination-page-btn {
+  padding: 6px 10px;
+  font-size: 13px;
+  min-width: 36px;
+}
+
+.pagination.compact .pagination-btn.nav {
+  min-width: 60px;
+}
+
+.pagination.spacious {
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding: 24px 0;
+}
+
+.pagination.spacious .pagination-btn,
+.pagination.spacious .pagination-page-btn {
+  padding: 10px 16px;
+  font-size: 15px;
+  min-width: 44px;
+}
+
+.pagination.spacious .pagination-btn.nav {
+  min-width: 90px;
+}
+
+/* ==========================================
+   PAGINATION SIZES
+   ========================================== */
+
+.pagination.small {
+  gap: 4px;
+}
+
+.pagination.small .pagination-btn,
+.pagination.small .pagination-page-btn {
+  padding: 6px 10px;
+  font-size: 12px;
+  min-width: 32px;
+}
+
+.pagination.small .pagination-btn.nav {
+  min-width: 60px;
+}
+
+.pagination.large {
+  gap: 12px;
+}
+
+.pagination.large .pagination-btn,
+.pagination.large .pagination-page-btn {
+  padding: 12px 16px;
+  font-size: 16px;
+  min-width: 48px;
+}
+
+.pagination.large .pagination-btn.nav {
+  min-width: 100px;
+}
+
+/* ==========================================
+   MOBILE RESPONSIVENESS
+   ========================================== */
+
+@media (max-width: 768px) {
+  .pagination {
+    gap: 6px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: 16px 0;
+  }
+
+  .pagination-btn,
+  .pagination-page-btn {
+    padding: 8px 10px;
+    font-size: 13px;
+    min-width: 36px;
+  }
+
+  .pagination-btn.nav {
+    min-width: 70px;
+  }
+
+  /* Hide some page numbers on mobile */
+  .pagination-mobile-hidden {
+    display: none;
+  }
+
+  /* Show first, current, and last page only on very small screens */
+  .pagination-page-btn:not(.active):not(:first-child):not(:last-child) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 4px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 12px 0;
+  }
+
+  .pagination-btn,
+  .pagination-page-btn {
+    padding: 6px 8px;
+    font-size: 12px;
+    min-width: 32px;
+  }
+
+  .pagination-btn.nav {
+    min-width: 60px;
+  }
+
+  /* Only show current page and navigation buttons on very small screens */
+  .pagination-page-btn {
+    display: none;
+  }
+
+  .pagination-page-btn.active {
+    display: flex;
+  }
+
+  /* Show ellipsis indicators on small screens */
+  .pagination-ellipsis {
+    display: none;
+  }
+}
+
+/* ==========================================
+   LOADING STATE
+   ========================================== */
+
+.pagination.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.pagination-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.pagination-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(100, 116, 139, 0.2);
+  border-top: 2px solid var(--accent-cyan);
+  border-radius: 50%;
+  animation: paginationSpin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes paginationSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+   ========================================== */
+
+.pagination-btn:focus,
+.pagination-page-btn:focus {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+.pagination-btn:focus:not(:disabled),
+.pagination-page-btn:focus:not(.active) {
+  box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .pagination-btn,
+  .pagination-page-btn {
+    border: 2px solid var(--text-primary);
+  }
+
+  .pagination-btn.active,
+  .pagination-page-btn.active {
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+    border-color: var(--accent-cyan);
+  }
+
+  .pagination-btn:focus,
+  .pagination-page-btn:focus {
+    outline: 2px solid var(--accent-cyan);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .pagination-btn,
+  .pagination-page-btn,
+  .pagination-btn::before,
+  .pagination-page-btn::before {
+    transition: none;
+  }
+
+  .pagination-spinner {
+    animation: none;
+  }
+}
+
+/* ==========================================
+   PAGINATION INFORMATION
+   ========================================== */
+
+.pagination-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  gap: 8px;
+}
+
+.pagination-count {
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.pagination-range {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .pagination-info {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination-info {
+    font-size: 12px;
+    margin-bottom: 8px;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* ==========================================
+   PAGINATION ANIMATIONS
+   ========================================== */
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pagination-btn,
+.pagination-page-btn {
+  animation: pageSlideIn 0.2s ease-out;
+}
+
+@keyframes pageUpdate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    background: rgba(0, 217, 255, 0.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pagination-btn.updating,
+.pagination-page-btn.updating {
+  animation: pageUpdate 0.3s ease-in-out;
+}
+
+/* ==========================================
+   PAGINATION THEME VARIANTS
+   ========================================== */
+
+.pagination.dark {
+  --pagination-bg: rgba(0, 0, 0, 0.2);
+  --pagination-border: rgba(255, 255, 255, 0.1);
+}
+
+.pagination.light {
+  --pagination-bg: rgba(255, 255, 255, 0.8);
+  --pagination-border: rgba(0, 0, 0, 0.1);
+}
+
+.pagination.minimal {
+  border-radius: 6px;
+}
+
+.pagination.minimal .pagination-btn,
+.pagination.minimal .pagination-page-btn {
+  border-radius: 6px;
+  border-width: 1px;
+}
+
+/* Rounded pagination */
+.pagination.rounded .pagination-btn,
+.pagination.rounded .pagination-page-btn {
+  border-radius: 20px;
+  min-width: 40px;
+}
+
+/* Square pagination */
+.pagination.square .pagination-btn,
+.pagination.square .pagination-page-btn {
+  border-radius: 0;
+}

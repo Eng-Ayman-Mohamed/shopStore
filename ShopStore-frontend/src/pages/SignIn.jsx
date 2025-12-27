@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { validateLogin } from "../utils/auth";
+import "./Auth.css";
 
 export default function SignIn({ onSign }) {
   const [email, setEmail] = useState("");
