@@ -1,137 +1,86 @@
-# ShopStore - Full Stack E-commerce Application
+# ShopStore – Full Stack E-commerce Platform
 
-A modern, responsive e-commerce platform built with React frontend and Express.js backend with MongoDB integration.
+A modern, responsive e-commerce application with a **React frontend**, **Express.js backend**, and **MongoDB** integration. ShopStore offers a complete shopping experience with user management, product management, order processing, discounts, premium products, and an admin dashboard.
+
+---
 
 ## 🚀 Features
 
-### Frontend Features
-
-- **Modern UI/UX**: Built with React and Framer Motion animations
-- **Responsive Design**: Mobile-first approach with CSS Grid and Flex box
-- **Authentication System**: User registration, sign-in, and profile management
-- **Product Management**: Browse products, view details, add to cart/wishlist
-- **Shopping Cart**: Add/remove items, quantity management
-- **Wishlist**: Save favorite products for later
-- **Order Management**: Track and manage user orders with local storage
-- **Admin Dashboard**: Complete admin panel with analytics, product management, and CRUD operations
-- **User Management**: Admin user management with role assignment, mobile-responsive table with intelligent column hiding
-- **Enhanced Profile Editing**: Advanced profile customization with avatar selection (image upload, colors, emojis)
-- **Image Upload**: Cloudinary integration for avatar and image uploads
-- **Theme Support**: Light/dark theme toggle capability
-- **Real-time Notifications**: Toast notifications for user actions
-- **Filter & Search**: Product filtering and search functionality
-- **Pagination**: Efficient product browsing with pagination
-- **Admin Analytics**: Product statistics, top-rated products, and performance metrics
-
-### Backend Features
-
-- **RESTful API**: Clean API architecture with Express.js
-- **MongoDB Integration**: Robust database with Mongoose ODM
-- **User Management**: Authentication and user profile operations
-- **Product Management**: CRUD operations for products
-- **Admin Analytics**: Product statistics and performance metrics aggregation
-- **Advanced Filtering**: Price range, rating, and premium product filtering
-- **Health Monitoring**: API health check endpoints
-- **CORS Support**: Cross-origin resource sharing configuration
-- **Error Handling**: Comprehensive error handling and logging
-- **Data Validation**: Input validation and sanitization
-- **Image Upload Support**: Backend support for image upload operations
-
-## 🛠 Tech Stack
-
 ### Frontend
 
-- **React 18**: Modern React with hooks and context
-- **React Router**: Client-side routing
-- **Framer Motion**: Smooth animations and transitions
-- **React Scripts**: Build tooling and development server
-- **Cloudinary**: Image upload and management for avatars
-- **bcryptjs**: Client-side password hashing utilities
+- **Responsive & Modern UI**: Built with React 18, Framer Motion animations, and a mobile-first design.
+- **Authentication**: User registration, login, and profile management with secure sessions.
+- **Product Browsing**: Search, filter, and view products; supports categories and pagination.
+- **Shopping Cart & Wishlist**: Add/remove items, manage quantities, save favorites, and complete payments.
+- **Payment System**: Cash balance management, payment processing, success confirmation modal, and order history.
+- **Admin Dashboard**: Full admin panel for analytics, product CRUD, discount management, and user role assignment.
+- **Profile Management**: Avatar selection (image upload, colors, emojis) and enhanced profile customization.
+- **Theme Support**: Light/dark mode toggle.
+- **Real-time Feedback**: Toast notifications for user actions.
+- **Category Filtering**: Multi-category system (Electronics, Fashion, Home & Garden, Sports, Books, Beauty, Toys).
+- **Premium & Discount Products**: Highlighted products with visual badges, dynamic pricing, and priority listing.
+- **Enhanced Home Page**: Trending products, premium items, deals of the day, and user statistics.
 
 ### Backend
 
-- **Node.js**: Runtime environment
-- **Express.js**: Web application framework
-- **MongoDB**: NoSQL database
-- **Mongoose**: MongoDB object modeling
-- **CORS**: Cross-origin resource sharing
-- **Morgan**: HTTP request logger
-- **Dotenv**: Environment variable management
+- **RESTful API** with Express.js
+- **MongoDB Integration** with Mongoose ODM
+- **User & Product Management**: CRUD operations with advanced filtering
+- **Admin Analytics**: Performance metrics, top-rated products, and category-based statistics
+- **Image Upload**: Cloudinary support for avatars and product images
+- **Data Validation & Error Handling**: Input sanitization, robust error logging, and health check endpoints
+- **CORS Support**: Cross-origin configuration
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend**: React 18, React Router, Framer Motion, Cloudinary, bcryptjs  
+**Backend**: Node.js, Express.js, MongoDB, Mongoose, CORS, Morgan, dotenv
+
+---
 
 ## 📁 Project Structure
 
 ```
+
 shopStore/
-├── ShopStore-frontend/           # React frontend application
-│   ├── public/                   # Static assets
-│   ├── src/
-│   │   ├── components/          # Reusable UI components
-│   │   │   ├── AdminDashboard/  # Admin panel components
-│   │   │   ├── EditProfile/     # Enhanced profile editing components
-│   │   │   └── profile/         # Profile display components
-│   │   ├── pages/               # Application pages/routes
-│   │   │   ├── AdminDashboard.jsx    # Admin dashboard page
-│   │   │   ├── EditProfile.jsx       # Enhanced profile editing
-│   │   │   ├── Orders.jsx            # Order management
-│   │   │   └── CartNew.jsx           # Enhanced cart functionality
-│   │   ├── hooks/               # Custom React hooks
-│   │   ├── context/             # React context providers
-│   │   ├── services/            # API service functions
-│   │   └── utils/               # Utility functions
-│   └── package.json
-└── shopStore-backend/            # Express.js backend API
-    ├── api/                     # API entry point
-    ├── src/
-    │   ├── controllers/         # Route controllers
-    │   ├── models/              # Database models
-    │   ├── routers/             # API routes
-    │   ├── config/              # Configuration files
-    │   └── utils/               # Utility functions
-    └── package.json
+├── ShopStore-frontend/ # React frontend
+│ ├── public/ # Static assets
+│ └── src/
+│ ├── components/ # UI components (AdminDashboard, EditProfile, Profile, etc.)
+│ ├── pages/ # Route pages (AdminDashboard, Cart, Orders, EditProfile)
+│ ├── hooks/ # Custom hooks
+│ ├── context/ # React context
+│ ├── services/ # API calls
+│ └── utils/ # Helper functions
+└── shopStore-backend/ # Express.js backend
+├── api/ # API entry point
+└── src/
+├── controllers/ # Business logic
+├── models/ # MongoDB schemas
+├── routers/ # API routes
+├── config/ # Config files
+└── utils/ # Utilities
+
 ```
 
-## 🏗 Implementation Details
-
-### Frontend Development
-
-The frontend was developed with significant assistance from **GitHub Copilot** and **BlackBoxAI**. These AI tools provided substantial support in:
-
-- Component architecture and React patterns
-- UI/UX design implementation
-- State management with hooks and context
-- API integration and data flow
-- Responsive design and styling
-- Animation and interaction design
-- **Admin Dashboard Development**: Complete admin panel with analytics and product management
-- **Enhanced Profile System**: Multi-avatar selection and advanced profile editing
-- **Image Upload Integration**: Cloudinary integration for seamless image handling
-
-### Backend Development
-
-The entire backend implementation, including MongoDB integration and all server-side functionality, was developed **independently without any AI assistance**. This includes:
-
-- Complete Express.js server architecture
-- MongoDB database design and integration
-- Mongoose models and schemas
-- API route implementations
-- Middleware configuration
-- Error handling and validation
-- Database connection management
+---
 
 ## 🚦 Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- MongoDB (local installation or MongoDB Atlas)
-- npm or yarn package manager
+- Node.js v14+
+- MongoDB (local or Atlas)
+- npm or yarn
 
 ### Backend Setup
 
 ```bash
 cd shopStore-backend
 npm install
-# Create .env file with your MongoDB connection string
+# Create .env with MongoDB URI and PORT
 npm run dev
 ```
 
@@ -143,9 +92,7 @@ npm install
 npm start
 ```
 
-### Environment Variables
-
-Create a `.env` file in the backend directory:
+### Environment Variables (`.env`)
 
 ```
 MONGODB_URI=your_mongodb_connection_string
@@ -153,130 +100,132 @@ PORT=5000
 NODE_ENV=development
 ```
 
-## 📊 API Endpoints
+---
 
-### Health Check
+## 📄 API Endpoints
 
-- `GET /api/health` - Service health status
+**Health Check**
 
-### Authentication
+- `GET /api/health` – Service status
 
-- `POST /api/users/register` - User registration
-- `POST /api/users/login` - User authentication
+**Authentication**
 
-### User Management
+- `POST /api/users/register` – Register
+- `POST /api/users/login` – Login
 
-- `GET /api/users/me/:id` - Get user data
-- `PUT /api/users/me/:id` - Update user data
-- `GET /api/users` - List all users with pagination and search (admin)
-- `GET /api/users/users-analysis` - Get user analytics and statistics (admin)
-- `DELETE /api/users/:id` - Delete user (admin)
+**User Management**
 
-### Shopping Cart
+- `GET /api/users/me/:id` – Get user info
+- `PUT /api/users/me/:id` – Update profile
+- `GET /api/users` – List users (admin)
+- `GET /api/users/users-analysis` – Analytics (admin)
+- `DELETE /api/users/:id` – Delete user (admin)
 
-- `GET /api/users/cart/:id` - Get user's shopping cart
-- `POST /api/users/cart/:id` - Add item to cart
-- `DELETE /api/users/cart/:id/:productId` - Remove item from cart
+**Cart & Wishlist**
 
-### Wishlist
+- `GET/POST/DELETE /api/users/cart/:id` – Cart operations
+- `GET/POST/DELETE /api/users/wishlist/:id` – Wishlist operations
 
-- `GET /api/users/wishlist/:id` - Get user's wishlist
-- `POST /api/users/wishlist/:id` - Add item to wishlist
-- `DELETE /api/users/wishlist/:id/:productId` - Remove item from wishlist
+**Products**
 
-### Products
+- `GET /api/products` – List/filter products
+- `GET /api/products/:id` – Product details
+- `POST/PUT/DELETE /api/products/:id` – Product CRUD (admin)
+- `GET /api/products/top-rating` – Top-rated premium products
+- `GET /api/products?sortBy=-discount` – Deals of the Day
 
-- `GET /api/products` - List all products with filtering and pagination
-- `GET /api/products/:id` - Get product details
-- `POST /api/products` - Create new product (admin)
-- `DELETE /api/products/:id` - Delete product (admin)
-- `GET /api/products/top-rating` - Get top-rated premium products
-- `GET /api/products/products-details` - Get analytics and statistics
+**Payments**
 
-### Image Upload
+- `POST /api/users/me/:id/completePayment` – Complete payment
+- `GET /api/users/me/:id/purchases` – Purchase history
 
-- `POST /api/upload` - Upload images (Cloudinary integration)
+**Image Upload**
+
+- `POST /api/upload` – Upload images (Cloudinary)
+
+---
 
 ## 🎨 Key Components
 
-### Frontend Components
+**Frontend Components**: NavBar, ProductCard, FilterPanel, Cart, Wishlist, Toast, PaymentSuccessModal
+**Home Page Components**: HeroSection, CategoryShowcase, TrendingSection, PremiumProducts, DealsSection, UserStats
+**Admin Components**: AdminDashboard, AdminTabNavigation, AnalyticsSection, AddProductForm, ProductsListSection, UsersListSection, ProductCardAdmin
+**Profile Components**: Profile, EditProfile, AvatarSelector, ProfileHeader, InfoSection
 
-- **NavBar**: Navigation with user status and cart count
-- **ProductCard**: Individual product display
-- **FilterPanel**: Product filtering interface
-- **Cart**: Shopping cart management
-- **Wishlist**: Saved products management
-- **Toast**: Notification system
-
-#### Admin Components
-
-- **AdminDashboard**: Main admin interface with tab navigation
-- **AdminHeader**: Admin panel header with branding
-- **AdminTabNavigation**: Tab switching between analytics, products, add product, and users
-- **AnalyticsSection**: Product statistics and performance metrics display
-- **AddProductForm**: Form for creating new products with validation
-- **ProductsListSection**: Paginated product management with search and delete
-- **UsersListSection**: Mobile-responsive user management with role assignment and intelligent column hiding
-- **ProductCardAdmin**: Admin-specific product display with delete functionality
-
-#### Profile Components
-
-- **Profile**: User profile display with avatar and information
-- **EditProfile**: Enhanced profile editing with avatar selection
-- **AvatarSelector**: Multi-type avatar selection (image upload, colors, emojis)
-- **ProfileHeader**: Profile page header with user info
-- **InfoSection**: User information display sections
-
-### Backend Architecture
-
-- **Models**: Product and User schemas
-- **Controllers**: Business logic handling
-- **Routes**: API endpoint definitions
-- **Middleware**: Request processing pipeline
+---
 
 ## 🔐 Authentication
 
-The application includes a complete authentication system:
+- Secure registration and login
+- Protected routes
+- Session persistence via localStorage
+- Profile management
 
-- User registration with validation
-- Secure login/logout functionality
-- Protected routes and API endpoints
-- User profile management
-- Session persistence with localStorage
+---
+
+## 💳 Payment System
+
+- **Cash balance** management
+- **Complete payment flow** with validation
+- Animated **Payment Success Modal**
+- **Order history** tracking
+- Real-time **balance updates**
+- Integrated with cart and discounts
+
+---
+
+## 🏷 Discounts & Premium Products
+
+**Discounts**
+
+- Real-time percentage-based pricing
+- Animated discount badges
+- Admin-controlled discount management
+- "Deals of the Day" highlighting
+
+**Premium Products**
+
+- Star badges and priority listing
+- Enhanced visual styling
+- Analytics tracking in admin dashboard
+
+---
+
+## 📂 Categories & Filtering
+
+- **Categories**: Electronics, Fashion, Home & Garden, Sports, Books, Beauty, Toys
+- URL-based and multi-filtering support
+- Combined filters: category + price + rating + discount
+- Real-time filtering with responsive design
+
+---
 
 ## 📱 Responsive Design
 
-The application is fully responsive and optimized for:
+- Optimized for desktops, tablets, and mobile devices
+- Mobile-friendly tables with **intelligent column hiding**
+- Touch-optimized interactions
+- Horizontal scrolling support and adaptive typography
 
-- Desktop computers
-- Tablets
-- Mobile devices
-- Various screen sizes and orientations
-
-### Mobile User Management Features
-
-- **Intelligent Column Hiding**: On screens ≤768px, the user management table shows only essential columns (Name, Role, Actions) while hiding Email, Phone, and Joined Date
-- **Progressive Disclosure**: Column visibility adapts based on screen size for optimal mobile experience
-- **Touch-Optimized Interface**: Button sizes and spacing optimized for mobile interaction
-- **Horizontal Scrolling Support**: Full table functionality maintained with scrollable mobile layout
-- **Responsive Typography**: Font sizes and spacing scale appropriately for different screen sizes
+---
 
 ## 🎯 Future Enhancements
 
-- Payment gateway integration
 - Advanced search and filtering
 - Product reviews and ratings
-- Admin dashboard improvements
+- Enhanced admin dashboard
 - Email notifications
-- Order tracking system
 - Multi-language support
+
+---
 
 ## 👨‍💻 Development Approach
 
-**Frontend**: Collaborative development with AI assistance (GitHub Copilot & BlackBoxAI) for enhanced productivity and code quality.
+- **Frontend**: Developed with AI assistance (GitHub Copilot & BlackBoxAI) for UI/UX, component design, and state management.
+- **Backend**: Independently implemented with full control over server architecture, MongoDB integration, API routes, validation, and error handling.
 
-**Backend**: Independent development showcasing full-stack capabilities without AI assistance, demonstrating complete understanding of backend technologies and MongoDB integration.
+---
 
 ## 📄 License
 
-This project is developed as a demonstration of full-stack development capabilities, showcasing both AI-assisted frontend development and independent backend implementation.
+This project is a demonstration of full-stack development capabilities, combining **AI-assisted frontend development** with **independent backend engineering**.
