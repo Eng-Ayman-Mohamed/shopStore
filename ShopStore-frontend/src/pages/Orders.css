@@ -296,7 +296,7 @@
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background: rgba(15, 23, 42, 0.5);
+  background: var(--bg-dark);
   border-radius: 12px;
   border: 1px solid var(--card-border);
   transition: all 0.2s ease;

@@ -294,7 +294,7 @@ export default function Footer() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <a
-              href="#"
+              href="https://portfolio-alpha-lime-11.vercel.app/"
               style={footerLinkStyle}
               onMouseEnter={(e) =>
                 (e.target.style.color = "var(--accent-purple)")
@@ -306,7 +306,7 @@ export default function Footer() {
               Help Center
             </a>
             <a
-              href="#"
+              href="https://portfolio-alpha-lime-11.vercel.app/"
               style={footerLinkStyle}
               onMouseEnter={(e) =>
                 (e.target.style.color = "var(--accent-purple)")
@@ -318,7 +318,7 @@ export default function Footer() {
               Contact Us
             </a>
             <a
-              href="#"
+              href="/"
               style={footerLinkStyle}
               onMouseEnter={(e) =>
                 (e.target.style.color = "var(--accent-purple)")

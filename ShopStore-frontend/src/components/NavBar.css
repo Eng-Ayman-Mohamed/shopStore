@@ -32,16 +32,6 @@
   transition: all 0.3s ease;
 }
 
-.nav-container.scrolled {
-  background: linear-gradient(
-    180deg,
-    rgba(30, 41, 59, 0.95),
-    rgba(15, 23, 42, 0.95)
-  );
-  backdrop-filter: blur(20px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
 /* ==========================================
    BRAND SECTION
    ========================================== */

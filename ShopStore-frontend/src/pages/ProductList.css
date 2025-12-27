@@ -79,12 +79,6 @@
 }
 
 @media (max-width: 480px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-top: 16px;
-  }
-
   .section-header {
     margin-bottom: 16px;
   }

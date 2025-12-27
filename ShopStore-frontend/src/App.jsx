@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate, useLocation, Routes, Route } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Home from "./pages/Home";
@@ -16,6 +16,7 @@ import Toast from "./components/Toast";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import FloatingBackground from "./components/FloatingBackground";
+import PaymentSuccessModal from "./components/PaymentSuccessModal";
 import { useAuth, useCart, useWishlist } from "./hooks/useStorage";
 import { useToast } from "./hooks/useToast";
 import {
@@ -32,6 +33,7 @@ export default function App() {
   const { cart, setCart } = useCart();
   const { wishlist, setWishlist } = useWishlist();
   const { toast, showToast } = useToast();
+  const [showPaymentSuccessModal, setShowPaymentSuccessModal] = useState(false);
 
   const { addToCart, removeFromCart } = useMemo(
     () => createCartHandlers(cart, user, setCart, showToast),
@@ -70,7 +72,20 @@ export default function App() {
     setAuthUser(updatedUser);
 
     setCart([]);
-    showToast("Payment completed successfully!", "success");
+
+    // Check if mobile view (max-width: 768px)
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      setShowPaymentSuccessModal(true);
+    } else {
+      showToast("Payment completed successfully!", "success");
+      navigate("/orders");
+    }
+  };
+
+  const handlePaymentModalClose = () => {
+    setShowPaymentSuccessModal(false);
     navigate("/orders");
   };
 
@@ -84,6 +99,13 @@ export default function App() {
         wishlistCount={wishlist.length}
       />
       <Toast toast={toast} />
+
+      {/* Payment Success Modal for Mobile */}
+      <AnimatePresence>
+        {showPaymentSuccessModal && (
+          <PaymentSuccessModal onClose={handlePaymentModalClose} />
+        )}
+      </AnimatePresence>
 
       <div className="container">
         <AnimatePresence mode="wait">
