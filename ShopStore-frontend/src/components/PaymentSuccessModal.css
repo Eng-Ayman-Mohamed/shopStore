@@ -1,0 +1,354 @@
+/* ==========================================
+   PAYMENT SUCCESS MODAL STYLES
+   ========================================== */
+
+.payment-success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.payment-success-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  animation: modalGlow 3s ease-in-out infinite alternate;
+}
+
+/* Add subtle glow effect to modal */
+.payment-success-content::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    135deg,
+    var(--accent-cyan),
+    var(--accent-purple),
+    var(--accent-pink)
+  );
+  border-radius: 22px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes modalGlow {
+  0% {
+    box-shadow: var(--card-shadow);
+  }
+  100% {
+    box-shadow: var(--card-hover-shadow), 0 0 30px rgba(0, 217, 255, 0.1);
+  }
+}
+
+@keyframes borderGlow {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.success-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.success-circle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.success-circle:hover::before {
+  opacity: 1;
+}
+
+.success-checkmark {
+  width: 60px;
+  height: 60px;
+  stroke: white;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.payment-success-title {
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payment-success-message {
+  color: var(--text-secondary);
+  font-size: 16px;
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+/* Tablet styles */
+@media (max-width: 768px) {
+  .payment-success-overlay {
+    padding: 15px;
+  }
+
+  .payment-success-content {
+    padding: 32px 24px;
+    max-width: 95vw;
+    border-radius: 16px;
+  }
+
+  .success-circle {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .success-checkmark {
+    width: 50px;
+    height: 50px;
+  }
+
+  .payment-success-title {
+    font-size: 20px;
+  }
+
+  .payment-success-message {
+    font-size: 14px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  .payment-success-overlay {
+    padding: 10px;
+    align-items: center;
+  }
+
+  .payment-success-content {
+    padding: 24px 20px;
+    max-width: 98vw;
+    border-radius: 12px;
+    width: 100%;
+    animation: fadeInScale 0.3s ease-out;
+  }
+
+  .success-circle {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+  }
+
+  .success-checkmark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .payment-success-title {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .payment-success-message {
+    font-size: 13px;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 320px) {
+  .payment-success-content {
+    padding: 20px 16px;
+    border-radius: 8px;
+  }
+
+  .success-circle {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 14px;
+  }
+
+  .success-checkmark {
+    width: 35px;
+    height: 35px;
+  }
+
+  .payment-success-title {
+    font-size: 16px;
+  }
+
+  .payment-success-message {
+    font-size: 12px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .payment-success-content {
+    padding: 48px;
+    max-width: 500px;
+  }
+
+  .success-circle {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 32px;
+  }
+
+  .success-checkmark {
+    width: 70px;
+    height: 70px;
+  }
+
+  .payment-success-title {
+    font-size: 28px;
+  }
+
+  .payment-success-message {
+    font-size: 18px;
+  }
+}
+
+/* Landscape mobile adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .payment-success-overlay {
+    align-items: center;
+  }
+
+  .payment-success-content {
+    padding: 20px 32px;
+    max-width: 80vw;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .success-circle {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 0;
+    margin-right: 24px;
+    flex-shrink: 0;
+  }
+
+  .success-checkmark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .payment-success-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .payment-success-title {
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 4px;
+  }
+
+  .payment-success-message {
+    font-size: 14px;
+    text-align: left;
+  }
+}
+
+/* Dark mode specific adjustments */
+@media (prefers-color-scheme: dark) {
+  .payment-success-overlay {
+    background: rgba(0, 0, 0, 0.9);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .payment-success-content {
+    animation: none;
+  }
+
+  .payment-success-content::before {
+    animation: none;
+  }
+
+  .success-circle::before {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .payment-success-content {
+    border: 2px solid var(--text-primary);
+    background: rgba(0, 0, 0, 0.95);
+  }
+
+  .payment-success-title {
+    background: none;
+    -webkit-text-fill-color: var(--text-primary);
+    color: var(--text-primary);
+  }
+}
+
+/* Fade in scale animation for mobile */
+@keyframes fadeInScale {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

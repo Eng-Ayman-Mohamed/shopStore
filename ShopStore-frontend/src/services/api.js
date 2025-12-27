@@ -273,7 +273,7 @@ export async function updateUserRole(userId, role) {
 }
 
 export async function deleteUser(userId) {
-  return await request(`/users/${encodeURIComponent(userId)}`, {
+  return await request(`/users/me/${encodeURIComponent(userId)}`, {
     method: "DELETE",
   });
 }
