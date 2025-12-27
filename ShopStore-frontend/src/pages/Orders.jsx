@@ -111,48 +111,64 @@ export default function Orders() {
       </div>
 
       <div className="orders-grid">
-        {purchases.map((purchase, idx) => (
-          <div key={purchase._id || idx} className="purchase-card">
-            <div className="purchase-header">
-              <div className="purchase-info">
-                <div className="purchase-id">
-                  Order #{purchase._id?.slice(-8) || idx + 1}
-                </div>
-                <div className="purchase-date">
-                  {formatDate(purchase.createdAt || Date.now())}
-                </div>
-              </div>
-              <div className="purchase-total">
-                ${calculateOrderTotal(purchase).toFixed(2)}
-              </div>
-            </div>
+        {purchases.map((purchase, idx) => {
+          // Generate unique keys for purchases and products
+          const purchaseKey =
+            purchase._id ||
+            `purchase-${idx}-${purchase.createdAt || Date.now()}`;
 
-            <div className="products-list">
-              {purchase.products &&
-                purchase.products.map((product, productIdx) => (
-                  <div key={product._id || productIdx} className="product-item">
-                    <div className="product-image">
-                      <img
-                        src={product.img || "https://placehold.co/400"}
-                        alt={product.title || "Product"}
-                        onError={(e) => {
-                          e.target.src = "https://placehold.co/400";
-                        }}
-                      />
-                    </div>
-                    <div className="product-details">
-                      <div className="product-name">
-                        {product.title || "Product Name"}
-                      </div>
-                      <div className="product-price">
-                        ${(product.price || 0).toFixed(2)}
-                      </div>
-                    </div>
+          return (
+            <div key={purchaseKey} className="purchase-card">
+              <div className="purchase-header">
+                <div className="purchase-info">
+                  <div className="purchase-id">
+                    Order #{purchase._id?.slice(-8) || idx + 1}
                   </div>
-                ))}
+                  <div className="purchase-date">
+                    {formatDate(purchase.createdAt || Date.now())}
+                  </div>
+                </div>
+                <div className="purchase-total">
+                  ${calculateOrderTotal(purchase).toFixed(2)}
+                </div>
+              </div>
+
+              <div className="products-list">
+                {purchase.products &&
+                  purchase.products.map((product, productIdx) => {
+                    // Generate unique keys for products within each purchase
+                    const productKey =
+                      product._id ||
+                      `product-${idx}-${productIdx}-${
+                        product.title || "unknown"
+                      }`;
+
+                    return (
+                      <div key={productKey} className="product-item">
+                        <div className="product-image">
+                          <img
+                            src={product.img || "https://placehold.co/400"}
+                            alt={product.title || "Product"}
+                            onError={(e) => {
+                              e.target.src = "https://placehold.co/400";
+                            }}
+                          />
+                        </div>
+                        <div className="product-details">
+                          <div className="product-name">
+                            {product.title || "Product Name"}
+                          </div>
+                          <div className="product-price">
+                            ${(product.price || 0).toFixed(2)}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
