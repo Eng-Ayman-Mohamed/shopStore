@@ -1,4 +1,4 @@
-# ShopStore – Full Stack E-commerce Platform
+# Swift Cart – Full Stack E-commerce Platform
 
 A modern, responsive e-commerce application with a **React frontend**, **Express.js backend**, and **MongoDB** integration. ShopStore offers a complete shopping experience with user management, product management, order processing, discounts, premium products, and an admin dashboard.
 
